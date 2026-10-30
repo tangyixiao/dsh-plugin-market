@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "Tangyixiao DSH Market",
+    "zh": "Tangyixiao DSH 插件市场"
+  },
+  "plugins": [
+    {
+      "name": "dsh-zcode-plan-bridge",
+      "version": "0.5.2",
+      "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge",
+      "title": "ZCode Plan Bridge"
+    }
+  ]
+}
