@@ -38,6 +38,13 @@ jobs:
           MARKET_FETCH_ATTEMPTS: '6'
           MARKET_RETRY_DELAY_MS: '10000'
           MARKET_FETCH_TIMEOUT_MS: '15000'
+      - name: Generate explicit preview channel
+        run: npm run build:preview
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          MARKET_FETCH_ATTEMPTS: '6'
+          MARKET_RETRY_DELAY_MS: '10000'
+          MARKET_FETCH_TIMEOUT_MS: '15000'
       - name: Upload Pages content
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4

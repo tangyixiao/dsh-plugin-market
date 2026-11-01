@@ -6,6 +6,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "node scripts/generate.mjs",
+    "build:preview": "node scripts/generate.mjs --config preview.market.json --out dist/preview/index.json",
     "test": "node --test"
   },
   "engines": {

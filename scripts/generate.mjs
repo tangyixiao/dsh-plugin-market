@@ -4,9 +4,10 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { setTimeout as delay } from 'node:timers/promises'
+import { parseArgs } from 'node:util'
 import { marketInstallTarget, parseMarketIndex } from '@deepseek-ai/dsh-plugin-market-index'
 import { aggregateIndexes } from './aggregate.mjs'
-import { buildMarketIndex, INDEX_URL, REGISTRY_URL, UnpublishedVersionError, validateConfig } from './metadata.mjs'
+import { buildMarketIndex, gitPinUrls, INDEX_URL, REGISTRY_URL, UnpublishedVersionError, validateConfig } from './metadata.mjs'
 
 async function readJson(response, maxBytes, signal) {
   if (Number(response.headers.get('content-length')) > maxBytes) {
@@ -82,12 +83,16 @@ export async function generateIndex({
   if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 60000) throw new Error('MARKET_FETCH_TIMEOUT_MS must be an integer from 1 to 60000')
   if (!Number.isInteger(maxBytes) || maxBytes < 1 || maxBytes > 67108864) throw new Error('MARKET_FETCH_MAX_BYTES must be an integer from 1 to 67108864')
   const config = validateConfig(JSON.parse(await readFile(configPath, 'utf8')))
+  const indexUrl = config.indexUrl ?? INDEX_URL, curatedTitle = config.allowPrerelease === true ? 'Curated preview pins' : 'Curated npm pins'
+  const generatedGitApiUrls = new Set(config.plugins.filter(plugin => plugin.source?.type === 'git').flatMap(plugin => Object.entries(gitPinUrls(plugin)).filter(([kind]) => kind !== 'manifest').map(([, url]) => url)))
   const packuments = new Map(), snapshots = []
-  async function fetchJson(url, check, publication) {
+  async function fetchJson(url, check, publication, githubApi = false) {
     for (let attempt = 1; attempt <= attempts; attempt++) {
       try {
         const signal = AbortSignal.timeout(timeoutMs)
-        const response = await fetchImpl(url, { headers: { accept: 'application/json', 'cache-control': 'no-cache' }, credentials: 'omit', redirect: 'error', signal })
+        const headers = { accept: 'application/json', 'cache-control': 'no-cache' }
+        if (githubApi && generatedGitApiUrls.has(url) && process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+        const response = await fetchImpl(url, { headers, credentials: 'omit', redirect: 'error', signal })
         if (response.status === 404 && publication) throw new UnpublishedVersionError(`${publication.name}@${publication.version} is not published in the public registry yet (HTTP 404)`)
         if (!response.ok) {
           void response.body?.cancel().catch(() => {})
@@ -107,7 +112,18 @@ export async function generateIndex({
     }
   }
   for (const plugin of config.plugins) {
-    const snapshot = await fetchJson(`${REGISTRY_URL}${encodeURIComponent(plugin.name)}`, value => buildMarketIndex(new Map([[plugin.name, value]]), { title: config.title, plugins: [plugin] }), plugin)
+    if (plugin.source?.type === 'git') {
+      const evidence = {}
+      for (const [kind, url] of Object.entries(gitPinUrls(plugin))) {
+        const snapshot = await fetchJson(url, () => {}, undefined, kind !== 'manifest')
+        evidence[kind] = snapshot.value
+        snapshots.push({ id: 'curated', name: plugin.name, kind, url, ...snapshot, value: undefined })
+      }
+      buildMarketIndex(new Map([[plugin.name, evidence]]), { ...config, plugins: [plugin] })
+      packuments.set(plugin.name, evidence)
+      continue
+    }
+    const snapshot = await fetchJson(`${REGISTRY_URL}${encodeURIComponent(plugin.name)}`, value => buildMarketIndex(new Map([[plugin.name, value]]), { ...config, plugins: [plugin] }), plugin)
     packuments.set(plugin.name, snapshot.value)
     snapshots.push({ id: 'curated', name: plugin.name, url: `${REGISTRY_URL}${encodeURIComponent(plugin.name)}`, ...snapshot, value: undefined })
   }
@@ -118,12 +134,13 @@ export async function generateIndex({
     upstreams.push({ ...source, index: parsed })
     snapshots.push({ ...source, ...snapshot, value: undefined, metadata: parsed.metadata, plugins: parsed.plugins.length, versions: parsed.plugins.reduce((sum, plugin) => sum + plugin.versions.length, 0) })
   }
-  const ownIndex = buildMarketIndex(packuments, config), merged = aggregateIndexes(ownIndex, upstreams)
-  const sources = [{ id: 'curated', title: 'Curated npm pins', url: INDEX_URL, pins: config.plugins.map(({ name, version }) => ({ name, version })), snapshots: snapshots.filter(s => s.id === 'curated') }, ...snapshots.filter(s => s.id !== 'curated')]
+  const ownIndex = buildMarketIndex(packuments, config), merged = aggregateIndexes(ownIndex, upstreams, { indexUrl, curatedTitle })
+  const sources = [{ id: 'curated', title: curatedTitle, url: indexUrl, pins: config.plugins.map(({ name, version, source }) => ({ name, version, ...(source === undefined ? {} : { source }) })), snapshots: snapshots.filter(s => s.id === 'curated') }, ...snapshots.filter(s => s.id !== 'curated')]
   const indexJson = `${JSON.stringify(merged.index, null, 2)}\n`
   const report = { format: 1, generatedAt: new Date().toISOString(), indexSha256: createHash('sha256').update(indexJson).digest('hex'), priority: sources.map(source => source.id), summary: merged.summary, sources, conflicts: merged.conflicts, plugins: merged.plugins, suppressedClaims: merged.suppressedClaims,
     verification: 'Schema validation and source aggregation only. No indexed plugin was installed or sandbox-tested by this market.' }
   const summary = { format: 1, generatedAt: report.generatedAt, indexSha256: report.indexSha256, summary: report.summary,
+    market: { title: config.title, indexUrl, allowPrerelease: config.allowPrerelease === true },
     sources: sources.map(source => Object.fromEntries(['id', 'title', 'url', 'homepage', 'license', 'licenseUrl', 'termsUrl', 'fetchedAt', 'sha256', 'bytes', 'plugins', 'versions', 'pins'].filter(key => source[key] !== undefined).map(key => [key, source[key]]))) }
   const stage = validateStage(`${directory}.${randomUUID()}.tmp`, directory)
   await mkdir(stage, { recursive: true })
@@ -144,7 +161,8 @@ export async function generateIndex({
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   try {
-    const { outputPath, report } = await generateIndex()
+    const { values } = parseArgs({ options: { config: { type: 'string' }, out: { type: 'string' } }, strict: true, allowPositionals: false })
+    const { outputPath, report } = await generateIndex({ ...(values.config === undefined ? {} : { configPath: path.resolve(values.config) }), ...(values.out === undefined ? {} : { outputPath: path.resolve(values.out) }) })
     console.log(`Wrote ${outputPath}: ${report.summary.plugins} plugins, ${report.summary.versions} versions, ${report.summary.conflicts} conflicts recorded`)
   } catch (error) { console.error(`Market index generation failed: ${error.message}`); process.exitCode = 1 }
 }
