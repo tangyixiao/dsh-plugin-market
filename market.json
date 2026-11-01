@@ -3,6 +3,41 @@
     "en": "Tangyixiao DSH Market",
     "zh": "Tangyixiao DSH 插件市场"
   },
+  "upstreamSources": [
+    {
+      "id": "awesome",
+      "title": "Awesome DSH Plugin",
+      "url": "https://awesome-dsh-plugin.com/index.json",
+      "homepage": "https://awesome-dsh-plugin.com",
+      "license": "CC0-1.0 catalog; individual plugin licenses remain separate",
+      "licenseUrl": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/blob/main/LICENSE"
+    },
+    {
+      "id": "open",
+      "title": "Open Plugin Market",
+      "url": "https://dshopen.org/index.json",
+      "homepage": "https://dshopen.org",
+      "license": "GPL-3.0 source catalog; individual plugin licenses remain separate",
+      "licenseUrl": "https://github.com/polang233/dsh-plugin-index/blob/main/LICENSE"
+    },
+    {
+      "id": "marketplace",
+      "title": "DSH Marketplace",
+      "url": "https://dshmarketplace.dev/market/index.json",
+      "homepage": "https://dshmarketplace.dev",
+      "license": "API permits data reuse including commercial use; source attribution appreciated",
+      "licenseUrl": "https://dshmarketplace.dev/api-docs"
+    },
+    {
+      "id": "hub",
+      "title": "DSH Plugin Hub",
+      "url": "https://dpharness.com/market/index.json",
+      "homepage": "https://dpharness.com",
+      "license": "Original translations and verification content: noncommercial reuse with source and original links; original plugin licenses remain separate",
+      "licenseUrl": "https://dpharness.com/terms",
+      "termsUrl": "https://dpharness.com/api-docs"
+    }
+  ],
   "plugins": [
     {
       "name": "dsh-zcode-plan-bridge",
