@@ -13,6 +13,19 @@ export function validateConfig(config) {
       throw new Error('Each configured version must be an exact stable version')
     }
   }
+  if (config.upstreamSources !== undefined && !Array.isArray(config.upstreamSources)) throw new Error('upstreamSources must be an array')
+  const ids = new Set(['curated'])
+  for (const source of config.upstreamSources ?? []) {
+    if (!/^[a-z][a-z0-9-]{0,39}$/.test(source?.id) || ids.has(source.id)) throw new Error('Each upstream source needs a unique id; curated is reserved')
+    ids.add(source.id)
+    if (typeof source.title !== 'string' || !source.title.trim()) throw new Error('Each upstream source needs a title')
+    for (const field of ['url', 'homepage', 'licenseUrl', 'termsUrl']) {
+      if (source[field] === undefined && field !== 'url') continue
+      let url
+      try { url = new URL(source[field]) } catch { throw new Error(`Invalid upstream ${field}`) }
+      if (url.protocol !== 'https:' || url.username || url.password || url.hash) throw new Error(`Upstream ${field} must be HTTPS without credentials or fragment`)
+    }
+  }
   // Use the official schema for names, exact SemVer, duplicate names, titles and
   // repository URLs as well as for the final index. No package metadata is implied.
   parseMarketIndex({

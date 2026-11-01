@@ -4,12 +4,45 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tangyixiao DSH 插件市场</title>
+    <style>
+      body { max-width: 52rem; margin: 3rem auto; padding: 0 1.25rem; font: 16px/1.7 system-ui, sans-serif; color: #202c34; background: #fafbf8; }
+      a { color: #126d5a; overflow-wrap: anywhere; } h1 { line-height: 1.2; } #stats { font-size: 1.15rem; } li { margin: .7rem 0; }
+      .note { color: #566269; } code { background: #e9efea; padding: .15rem .35rem; }
+    </style>
   </head>
   <body>
     <h1>Tangyixiao DSH 插件市场</h1>
     <p>在 DSH 的「插件 → 发现 → 添加索引源」中添加：</p>
     <p><a href="./index.json">https://tangyixiao.github.io/dsh-plugin-market/index.json</a></p>
     <p>收录条目、精确版本及兼容范围见索引和 DSH 安装确认页。</p>
+    <p id="stats" aria-live="polite">正在读取本次构建统计……</p>
+    <p id="built" class="note"></p>
+    <ul id="sources"></ul>
+    <p class="note">本市场校验索引格式与安装目标，没有安装或沙箱测试收录插件。来源方的验证声明保留原归属和适用版本；完整来源、冲突与未展示声明见 <a href="./sources.json">构建溯源报告</a>。收录与安装验证分别看待。</p>
+    <p class="note">Hub 的原创翻译与验证信息按其非商业转载条款保留出处；各插件仍适用原作者许可证。</p>
     <p><a href="https://github.com/tangyixiao/dsh-plugin-market">市场清单、源码与维护记录</a></p>
+    <script type="module">
+      const stats = document.querySelector('#stats')
+      try {
+        const response = await fetch('./summary.json')
+        if (!response.ok) throw new Error('report unavailable')
+        const report = await response.json(), summary = report.summary
+        stats.textContent = `${summary.plugins.toLocaleString()} 个插件 · ${summary.versions.toLocaleString()} 个精确版本 · ${report.sources.length - 1} 个上游来源 · ${summary.conflicts.toLocaleString()} 处冲突已记录`
+        document.querySelector('#built').textContent = `本次构建：${report.generatedAt}。来源按清单顺序取优先项，自有同版 pin 优先；每次构建重新读取来源。`
+        for (const source of report.sources) {
+          const item = document.createElement('li'), link = document.createElement('a')
+          link.href = source.homepage || source.url
+          link.textContent = source.title
+          item.append(link, document.createTextNode(source.id === 'curated' ? `：${source.pins.length} 个自有精确 pin` : `：${source.plugins.toLocaleString()} 条来源记录 · ${source.license || '适用原来源条款'}`))
+          if (source.licenseUrl) {
+            const terms = document.createElement('a')
+            terms.href = source.licenseUrl
+            terms.textContent = ' 来源条款'
+            item.append(terms)
+          }
+          document.querySelector('#sources').append(item)
+        }
+      } catch { stats.textContent = '构建统计暂不可读，请查看索引与溯源报告。' }
+    </script>
   </body>
 </html>
