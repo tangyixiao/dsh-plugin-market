@@ -11,9 +11,11 @@
     </style>
   </head>
   <body>
-    <h1>Tangyixiao DSH 插件市场</h1>
+    <h1 id="market-title">Tangyixiao DSH 插件市场</h1>
     <p>在 DSH 的「插件 → 发现 → 添加索引源」中添加：</p>
-    <p><a href="./index.json">https://tangyixiao.github.io/dsh-plugin-market/index.json</a></p>
+    <p><a id="feed-url" href="./index.json">https://tangyixiao.github.io/dsh-plugin-market/index.json</a></p>
+    <p>明确选用预览版本：<a href="https://tangyixiao.github.io/dsh-plugin-market/preview/index.json">预览渠道索引</a>；<a href="https://tangyixiao.github.io/dsh-plugin-market/index.json">稳定渠道索引</a>。主索引的自有稳定 pin 保持独立。</p>
+    <p>公开预览：<a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/v0.6.0-community.4">ZCode Plan Bridge</a> · <a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community/releases/tag/v0.1.7-rc5.1">WorkBuddy 社区版</a>。<a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/zcode-community-retry-v0.3.1">ZCode Community Retry 0.3.1</a> 是 ZCode 原生插件，按其发布说明安装。</p>
     <p>收录条目、精确版本及兼容范围见索引和 DSH 安装确认页。</p>
     <p id="stats" aria-live="polite">正在读取本次构建统计……</p>
     <p id="built" class="note"></p>
@@ -27,6 +29,14 @@
         const response = await fetch('./summary.json')
         if (!response.ok) throw new Error('report unavailable')
         const report = await response.json(), summary = report.summary
+        if (report.market) {
+          const title = typeof report.market.title === 'string' ? report.market.title : report.market.title.zh || report.market.title.en
+          document.querySelector('#market-title').textContent = title
+          document.title = title
+          const feed = document.querySelector('#feed-url')
+          feed.href = report.market.indexUrl
+          feed.textContent = report.market.indexUrl
+        }
         stats.textContent = `${summary.plugins.toLocaleString()} 个插件 · ${summary.versions.toLocaleString()} 个精确版本 · ${report.sources.length - 1} 个上游来源 · ${summary.conflicts.toLocaleString()} 处冲突已记录`
         document.querySelector('#built').textContent = `本次构建：${report.generatedAt}。来源按清单顺序取优先项，自有同版 pin 优先；每次构建重新读取来源。`
         for (const source of report.sources) {

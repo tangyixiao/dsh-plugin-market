@@ -1,0 +1,42 @@
+{
+  "title": { "en": "Tangyixiao DSH Preview Market", "zh": "Tangyixiao DSH 预览插件市场" },
+  "description": {
+    "en": "Explicitly selected preview releases. Subscribe to the main index for stable maintained pins.",
+    "zh": "明确选择的预览版本。使用稳定渠道请订阅主索引；预览版本不替换主索引的自有稳定 pin。"
+  },
+  "allowPrerelease": true,
+  "indexUrl": "https://tangyixiao.github.io/dsh-plugin-market/preview/index.json",
+  "upstreamSources": [
+    {
+      "id": "awesome", "title": "Awesome DSH Plugin", "url": "https://awesome-dsh-plugin.com/index.json",
+      "homepage": "https://awesome-dsh-plugin.com", "license": "CC0-1.0 catalog; individual plugin licenses remain separate",
+      "licenseUrl": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/blob/main/LICENSE"
+    },
+    {
+      "id": "open", "title": "Open Plugin Market", "url": "https://dshopen.org/index.json",
+      "homepage": "https://dshopen.org", "license": "GPL-3.0 source catalog; individual plugin licenses remain separate",
+      "licenseUrl": "https://github.com/polang233/dsh-plugin-index/blob/main/LICENSE"
+    },
+    {
+      "id": "marketplace", "title": "DSH Marketplace", "url": "https://dshmarketplace.dev/market/index.json",
+      "homepage": "https://dshmarketplace.dev", "license": "API permits data reuse including commercial use; source attribution appreciated",
+      "licenseUrl": "https://dshmarketplace.dev/api-docs"
+    },
+    {
+      "id": "hub", "title": "DSH Plugin Hub", "url": "https://dpharness.com/market/index.json",
+      "homepage": "https://dpharness.com", "license": "Original translations and verification content: noncommercial reuse with source and original links; original plugin licenses remain separate",
+      "licenseUrl": "https://dpharness.com/terms", "termsUrl": "https://dpharness.com/api-docs"
+    }
+  ],
+  "plugins": [
+    {
+      "name": "dsh-zcode-plan-bridge", "version": "0.6.0-community.4",
+      "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge", "title": "ZCode Plan Bridge（预览）"
+    },
+    {
+      "name": "dsh-workbuddy-connect-community", "version": "0.1.7-rc5.1",
+      "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community", "title": "WorkBuddy Connect Community（预览）",
+      "source": { "type": "git", "url": "https://github.com/tangyixiao/dsh-workbuddy-connect-community", "commit": "924cb579a5d3ccdc1d15475562d7263cf1c827e8" }
+    }
+  ]
+}

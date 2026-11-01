@@ -12,8 +12,8 @@ function versionClaim(sourceId, id, declaration) {
 }
 
 /** Merge only officially parsed records. Never combine source/engines across versions. */
-export function aggregateIndexes(ownIndex, upstreams) {
-  const sources = [{ id: 'curated', title: 'Curated npm pins', url: INDEX_URL, index: ownIndex }, ...upstreams]
+export function aggregateIndexes(ownIndex, upstreams, { indexUrl = INDEX_URL, curatedTitle = 'Curated npm pins' } = {}) {
+  const sources = [{ id: 'curated', title: curatedTitle, url: indexUrl, index: ownIndex }, ...upstreams]
   const metadata = { categories: {}, labels: {}, sortKeys: {} }, packages = new Map(), conflicts = [], conflictByVersion = new Map(), suppressedClaims = []
   const provenance = Object.create(null)
   for (const source of sources) {
@@ -65,7 +65,7 @@ export function aggregateIndexes(ownIndex, upstreams) {
   }
   const ownNames = ownIndex.plugins.map(plugin => plugin.name), ownSet = new Set(ownNames)
   const names = [...ownNames, ...[...packages.keys()].filter(name => !ownSet.has(name)).sort()]
-  const index = parseMarketIndex({ format: 1, title: ownIndex.title, metadata, plugins: names.map(name => {
+  const index = parseMarketIndex({ format: 1, title: ownIndex.title, ...(ownIndex.description === undefined ? {} : { description: ownIndex.description }), metadata, plugins: names.map(name => {
     const entry = packages.get(name)
     for (const claim of entry.claims) {
       const covered = [...entry.versions.values()].every(selected => claim.versions.some(record => record.version === selected.record.version
@@ -76,7 +76,7 @@ export function aggregateIndexes(ownIndex, upstreams) {
     return { ...entry.plugin, metadata: { ...entry.plugin.metadata,
       keywords: [...new Set(entry.plugin.metadata.keywords)].sort(), labels: [...new Set(entry.plugin.metadata.labels)].sort(),
     }, versions: [...entry.versions.values()].map(value => value.record) }
-  }) }, INDEX_URL)
+  }) }, indexUrl)
   for (const plugin of index.plugins) for (const record of plugin.versions) {
     const selected = packages.get(plugin.name).versions.get(record.version)
     if (!same(marketInstallTarget(plugin.name, record), selected.installTarget) || !same(record, selected.record)) throw new Error(`Aggregation changed install target or compatibility: ${plugin.name}@${record.version}`)

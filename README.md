@@ -10,6 +10,10 @@
 
 入口页展示最近一次构建的实际插件数、版本数及来源；[sources.json](https://tangyixiao.github.io/dsh-plugin-market/sources.json) 保留抓取时间、原始响应 SHA-256、来源归属、每个版本的选择、冲突和原始验证声明。来源收录和格式解析通过不代表本市场安装或沙箱测试过这些插件。
 
+需要明确选用预览版本时，单独订阅 [preview/index.json](https://tangyixiao.github.io/dsh-plugin-market/preview/index.json)。它读取 `preview.market.json`，通过 `allowPrerelease: true` 允许维护者填写精确预览版本；主配置和主订阅中的自有稳定 pin 保持独立。预览频道优先收录 Bridge `0.6.0-community.4` 和 WorkBuddy 社区版 `0.1.7-rc5.1`，并合并相同四个上游来源中的已有版本。官方解析器按 SemVer 排序，预览频道中的高版本候选可能排在旧稳定版前，因此仅在明确接受预览时订阅。
+
+WorkBuddy 社区版通过其原仓库的固定 Git commit 安装，索引没有把 GitHub Release 附件冒充为 npm 包。构建只读核对公开 Release 的发布时间、标签解析到的精确 commit、该 commit 的包清单和构建入口/补丁文件。其 GitHub Release tarball 仍可按发布说明手动安装。ZCode Community Retry 是原生 ZCode 插件，见 [Retry 0.3.1 发布页](https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/zcode-community-retry-v0.3.1)，不会作为 DSH 安装记录收录。
+
 ## 来源与优先级
 
 `market.json` 的 `plugins` 是自有精确稳定版本 pin；`upstreamSources` 是公开 format 1 源，数组靠前者优先。当前配置按以下顺序导入：
@@ -50,9 +54,12 @@
 npm ci --ignore-scripts --registry=https://registry.npmjs.org
 npm test
 npm run build
+npm run build:preview
 ```
 
 需要 Node.js 24+。输出为 `dist/index.json`、`dist/sources.json`、`dist/summary.json` 和 `dist/index.html`。入口页仅读取小型 `summary.json` 统计，完整审计报告按需打开。所有输入先用固定版本 `@deepseek-ai/dsh-plugin-market-index` 按**原索引 URL**解析，保留原安装目标并将相对图标转为原站绝对地址；聚合结果再次通过官方解析器。构建仅读取公开元数据，不下载、安装或运行所收录插件。
+
+预览频道输出在 `dist/preview/`，同样生成上述四个文件。可用 `node scripts/generate.mjs --config preview.market.json --out dist/preview/index.json` 显式选择配置与输出。默认命令仍只构建稳定频道，不自动选择 npm dist-tag 或预览版本。单个包仍只配置一个精确 pin；多来源已有版本由现有聚合步骤合并。
 
 每个响应默认最多 32 MiB，超时 15 秒，最多 3 次请求。可使用 `MARKET_FETCH_MAX_BYTES`（1–67108864）、`MARKET_FETCH_TIMEOUT_MS`（1–60000）、`MARKET_FETCH_ATTEMPTS`（1–10）及 `MARKET_RETRY_DELAY_MS`（0–60000）调整边界。上游临时网络/429/5xx 故障有界重试，非法 JSON/格式直接失败；npm pin 继续只对未传播的版本重试。
 
@@ -60,7 +67,7 @@ npm run build
 
 ## 发布与维护
 
-`main` 的提交和 Actions 手动运行会执行测试、完整抓取/校验并部署 Pages；PR 仅测试和构建，不部署。每次构建重新读取全部配置源，能够纳入这些来源新公开的条目和版本；这次不新增定时任务。自有 pin 需要明确更新配置，其他仓库发布 npm 不会自动替换 pin。
+`main` 的提交和 Actions 手动运行会执行测试，再完整构建稳定和预览两个频道，两者均通过后才部署 Pages；PR 仅测试和构建，不部署。每次构建重新读取全部配置源，能够纳入这些来源新公开的条目和版本；这次不新增定时任务。自有 pin 需要明确更新配置，其他仓库发布 npm 不会自动替换 pin。
 
 本地构建和 PR 校验不会改变线上站点。只有经过合并并成功完成部署，订阅地址才会更新。
 
