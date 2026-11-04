@@ -12,7 +12,7 @@
 
 需要明确选用预览版本时，单独订阅 [preview/index.json](https://tangyixiao.github.io/dsh-plugin-market/preview/index.json)。它读取 `preview.market.json`，通过 `allowPrerelease: true` 允许维护者填写精确预览版本；主配置和主订阅中的自有稳定 pin 保持独立。预览频道优先收录 Bridge `0.6.0-community.5` 和 WorkBuddy 社区版 `0.1.7-rc5.2`，并合并相同四个上游来源中的已有版本。官方解析器按 SemVer 排序，预览频道中的高版本候选可能排在旧稳定版前，因此仅在明确接受预览时订阅。
 
-WorkBuddy 社区版通过其原仓库的固定 Git commit 安装，索引没有把 GitHub Release 附件冒充为 npm 包。构建只读核对公开 Release 的发布时间、标签解析到的精确 commit、该 commit 的包清单和构建入口/补丁文件。其 GitHub Release tarball 仍可按发布说明手动安装。ZCode Community Retry 是原生 ZCode 插件，见 [Retry 0.3.2 发布页](https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/zcode-community-retry-v0.3.2)，不会作为 DSH 安装记录收录。
+WorkBuddy 社区版正式版可从主索引通过 npm 安装。预览频道的历史 pin 仍按固定 Git commit 安装。ZCode Community Retry 是原生 ZCode 插件，见 [Retry 0.3.3 发布页](https://github.com/tangyixiao/zcode-community-retry/releases/tag/v0.3.3)，不会作为 DSH 安装记录收录。
 
 ## 来源与优先级
 

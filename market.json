@@ -44,6 +44,12 @@
       "version": "0.5.2",
       "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge",
       "title": "ZCode Plan Bridge"
+    },
+    {
+      "name": "dsh-workbuddy-connect-community",
+      "version": "0.1.8",
+      "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community",
+      "title": "WorkBuddy Connect Community"
     }
   ]
 }
