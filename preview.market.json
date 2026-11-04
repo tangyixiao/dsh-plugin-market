@@ -30,13 +30,13 @@
   ],
   "plugins": [
     {
-      "name": "dsh-zcode-plan-bridge", "version": "0.6.0-community.4",
+      "name": "dsh-zcode-plan-bridge", "version": "0.6.0-community.5",
       "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge", "title": "ZCode Plan Bridge（预览）"
     },
     {
-      "name": "dsh-workbuddy-connect-community", "version": "0.1.7-rc5.1",
+      "name": "dsh-workbuddy-connect-community", "version": "0.1.7-rc5.2",
       "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community", "title": "WorkBuddy Connect Community（预览）",
-      "source": { "type": "git", "url": "https://github.com/tangyixiao/dsh-workbuddy-connect-community", "commit": "924cb579a5d3ccdc1d15475562d7263cf1c827e8" }
+      "source": { "type": "git", "url": "https://github.com/tangyixiao/dsh-workbuddy-connect-community", "commit": "63d91ce474f113c0881a27f24c455f2d09c83d7d" }
     }
   ]
 }
