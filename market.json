@@ -50,6 +50,12 @@
       "version": "0.1.14",
       "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community",
       "title": "WorkBuddy Connect Community"
+    },
+    {
+      "name": "dsh-pr-release-workspace",
+      "version": "0.1.0",
+      "repository": "https://github.com/tangyixiao/dsh-pr-release-workspace",
+      "title": "PR & Release Workspace"
     }
   ]
 }
