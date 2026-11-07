@@ -56,6 +56,12 @@
       "version": "0.1.2",
       "repository": "https://github.com/tangyixiao/dsh-pr-release-workspace",
       "title": "PR & Release Workspace"
+    },
+    {
+      "name": "dsh-provider-doctor",
+      "version": "0.1.1",
+      "repository": "https://github.com/tangyixiao/dsh-provider-doctor",
+      "title": "DSH Provider Doctor"
     }
   ]
 }
