@@ -59,7 +59,7 @@
     },
     {
       "name": "dsh-provider-doctor",
-      "version": "0.1.4",
+      "version": "0.1.6",
       "repository": "https://github.com/tangyixiao/dsh-provider-doctor",
       "title": "DSH Provider Doctor"
     },
