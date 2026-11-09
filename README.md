@@ -1,3 +1,5 @@
+<p><img src="public/assets/logo.webp" width="96" height="96" alt="dsh-plugin-market logo"></p>
+
 # Tangyixiao DSH Plugin Market
 
 独立维护的 DeepSeek Harness format 1 插件索引，聚合公开市场的安装记录，并保留本仓库维护的精确 npm 版本。市场清单、来源顺序、构建和部署均由本仓库控制。

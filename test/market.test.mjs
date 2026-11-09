@@ -53,6 +53,20 @@ function registryMap(registry = packument()) {
   return new Map([['dsh-zcode-plan-bridge', registry]])
 }
 
+test('curated icons resolve in each channel without changing install targets', () => {
+  for (const channel of [indexUrl, indexUrl.replace('/index.json', '/preview/index.json')]) {
+    const selected = { ...config, indexUrl: channel, plugins: [{ ...config.plugins[0], icon: './assets/bridge.webp' }] }
+    const result = buildMarketIndex(registryMap(), selected).plugins[0]
+    assert.equal(result.icon, new URL('./assets/bridge.webp', channel).href)
+    assert.deepEqual(marketInstallTarget(result.name, result.versions[0]), {
+      spec: 'dsh-zcode-plan-bridge@0.5.2', registry: 'https://registry.npmjs.org/',
+    })
+  }
+  assert.throws(() => buildMarketIndex(registryMap(), {
+    ...config, plugins: [{ ...config.plugins[0], icon: 'javascript:alert(1)' }],
+  }), /icon|protocol|scheme|http|url/i)
+})
+
 test('builds multiple configured bundles including scoped packages with exact independent version pins', () => {
   const multiple = { ...config, plugins: [config.plugins[0], secondPlugin] }
   let index
