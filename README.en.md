@@ -4,7 +4,7 @@
 
 <p align="center">Aggregate public DSH plugin indexes with maintained exact pins, an independent preview channel and auditable sources and conflicts.</p>
 
-<p align="center">[简体中文](README.md) · [English](README.en.md)</p>
+<p align="center"><a href="README.md">简体中文</a> · <a href="README.en.md">English</a></p>
 
 [![Stars](https://img.shields.io/github/stars/tangyixiao/dsh-plugin-market?style=flat)](https://github.com/tangyixiao/dsh-plugin-market/stargazers) [![CI](https://img.shields.io/github/actions/workflow/status/tangyixiao/dsh-plugin-market/publish.yml?branch=main)](https://github.com/tangyixiao/dsh-plugin-market/actions/workflows/publish.yml) [![License](https://img.shields.io/github/license/tangyixiao/dsh-plugin-market)](LICENSE)
 

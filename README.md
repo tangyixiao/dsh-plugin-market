@@ -4,7 +4,7 @@
 
 <p align="center">聚合公开 DSH 插件索引，保留自有精确版本、独立预览渠道及可追溯的来源与冲突。</p>
 
-<p align="center">[简体中文](README.md) · [English](README.en.md)</p>
+<p align="center"><a href="README.md">简体中文</a> · <a href="README.en.md">English</a></p>
 
 [![Stars](https://img.shields.io/github/stars/tangyixiao/dsh-plugin-market?style=flat)](https://github.com/tangyixiao/dsh-plugin-market/stargazers) [![CI](https://img.shields.io/github/actions/workflow/status/tangyixiao/dsh-plugin-market/publish.yml?branch=main)](https://github.com/tangyixiao/dsh-plugin-market/actions/workflows/publish.yml) [![License](https://img.shields.io/github/license/tangyixiao/dsh-plugin-market)](LICENSE)
 
