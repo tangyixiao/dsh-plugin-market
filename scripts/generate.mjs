@@ -153,6 +153,7 @@ export async function generateIndex({
     await writeFile(path.join(stage, 'sources.json'), `${JSON.stringify(report, null, 2)}\n`, { encoding: 'utf8', flag: 'wx' })
     await writeFile(path.join(stage, 'summary.json'), `${JSON.stringify(summary, null, 2)}\n`, { encoding: 'utf8', flag: 'wx' })
     await writeFile(path.join(stage, 'index.html'), await readFile(new URL('../public/index.html', import.meta.url)), { flag: 'wx' })
+    await cp(new URL('../public/assets/', import.meta.url), path.join(stage, 'assets'), { recursive: true, force: true })
     await publishDirectory(stage, directory)
   } finally { await rm(stage, { recursive: true, force: true }) }
   const installTargets = merged.index.plugins.flatMap(plugin => plugin.versions.map(record => marketInstallTarget(plugin.name, record)))

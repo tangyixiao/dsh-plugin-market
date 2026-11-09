@@ -3,20 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/webp" href="./assets/logo.webp">
+    <link rel="apple-touch-icon" href="./assets/logo.webp">
+    <meta name="theme-color" content="#E75035">
+    <meta name="description" content="Tangyixiao 的独立 DSH 插件市场：稳定与预览索引、自有精确版本、多源溯源与维护项目。">
+    <link id="canonical" rel="canonical" href="https://tangyixiao.github.io/dsh-plugin-market/">
+    <meta property="og:title" content="Tangyixiao DSH 插件市场">
+    <meta property="og:description" content="独立维护的 DSH 插件索引、稳定与预览渠道及来源溯源。">
+    <meta property="og:type" content="website">
+    <meta id="og-url" property="og:url" content="https://tangyixiao.github.io/dsh-plugin-market/">
+    <meta property="og:image" content="https://tangyixiao.github.io/dsh-plugin-market/assets/logo.webp">
+    <meta name="twitter:card" content="summary">
     <title>Tangyixiao DSH 插件市场</title>
     <style>
       body { max-width: 52rem; margin: 3rem auto; padding: 0 1.25rem; font: 16px/1.7 system-ui, sans-serif; color: #202c34; background: #fafbf8; }
       a { color: #126d5a; overflow-wrap: anywhere; } h1 { line-height: 1.2; } #stats { font-size: 1.15rem; } li { margin: .7rem 0; }
+      .market-brand { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+      .market-brand h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); }
+      .market-brand img { flex: 0 0 64px; }
+      .maintained { list-style: none; padding: 0; }
+      .maintained a { display: inline-flex; align-items: center; gap: .6rem; }
+      .maintained img { width: 36px; height: 36px; object-fit: contain; }
       .note { color: #566269; } code { background: #e9efea; padding: .15rem .35rem; }
     </style>
   </head>
   <body>
-    <h1 id="market-title">Tangyixiao DSH 插件市场</h1>
+    <header class="market-brand"><img src="./assets/logo.webp" width="64" height="64" alt="" fetchpriority="high"><h1 id="market-title">Tangyixiao DSH 插件市场</h1></header>
     <p>在 DSH 的「插件 → 发现 → 添加索引源」中添加：</p>
     <p><a id="feed-url" href="./index.json">https://tangyixiao.github.io/dsh-plugin-market/index.json</a></p>
     <p>明确选用预览版本：<a href="https://tangyixiao.github.io/dsh-plugin-market/preview/index.json">预览渠道索引</a>；<a href="https://tangyixiao.github.io/dsh-plugin-market/index.json">稳定渠道索引</a>。主索引的自有稳定 pin 保持独立。</p>
-    <p>公开预览：<a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/v0.6.0-community.4">ZCode Plan Bridge</a> · <a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community/releases/tag/v0.1.7-rc5.1">WorkBuddy 社区版</a>。<a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/zcode-community-retry-v0.3.1">ZCode Community Retry 0.3.1</a> 是 ZCode 原生插件，按其发布说明安装。</p>
+    <p>公开预览：<a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/v0.6.0-community.5">ZCode Plan Bridge</a> · <a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community/releases/tag/v0.1.7-rc5.2">WorkBuddy 社区版</a>。<a href="https://github.com/tangyixiao/zcode-community-retry/releases/tag/v0.3.3">ZCode Community Retry 0.3.3</a> 是 ZCode 原生插件，按其发布说明安装。</p>
     <p>收录条目、精确版本及兼容范围见索引和 DSH 安装确认页。</p>
+    <h2>我维护的项目</h2>
+    <ul class="maintained">
+      <li><a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge"><img src="./assets/dsh-zcode-plan-bridge.webp" width="36" height="36" alt="" loading="lazy">ZCode Plan Bridge</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community"><img src="./assets/dsh-workbuddy-connect-community.webp" width="36" height="36" alt="" loading="lazy">WorkBuddy Connect Community</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-provider-doctor"><img src="./assets/dsh-provider-doctor.webp" width="36" height="36" alt="" loading="lazy">Provider Doctor</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-pr-release-workspace"><img src="./assets/dsh-pr-release-workspace.webp" width="36" height="36" alt="" loading="lazy">PR &amp; Release Workspace</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-version-manager"><img src="./assets/dsh-version-manager.webp" width="36" height="36" alt="" loading="lazy">Version Manager</a></li>
+      <li><a href="https://github.com/tangyixiao/zcode-community-retry"><img src="./assets/zcode-community-retry.webp" width="36" height="36" alt="" loading="lazy">ZCode Community Retry</a></li>
+      <li><a href="https://github.com/tangyixiao/drawai-video-studio"><img src="./assets/drawai-video-studio.webp" width="36" height="36" alt="" loading="lazy">DrawAI Video Studio</a></li>
+    </ul>
+    <p class="note">以上是项目入口；是否收录、可安装版本及兼容范围以对应渠道索引为准。</p>
     <p id="stats" aria-live="polite">正在读取本次构建统计……</p>
     <p id="built" class="note"></p>
     <ul id="sources"></ul>
@@ -36,6 +64,11 @@
           const feed = document.querySelector('#feed-url')
           feed.href = report.market.indexUrl
           feed.textContent = report.market.indexUrl
+        }
+        if (report.market?.indexUrl) {
+          const pageUrl = new URL("./", report.market.indexUrl).href
+          document.querySelector("#canonical").href = pageUrl
+          document.querySelector("#og-url").content = pageUrl
         }
         stats.textContent = `${summary.plugins.toLocaleString()} 个插件 · ${summary.versions.toLocaleString()} 个精确版本 · ${report.sources.length - 1} 个上游来源 · ${summary.conflicts.toLocaleString()} 处冲突已记录`
         document.querySelector('#built').textContent = `本次构建：${report.generatedAt}。来源按清单顺序取优先项，自有同版 pin 优先；每次构建重新读取来源。`

@@ -43,6 +43,7 @@ export function validateConfig(config) {
     plugins: config.plugins.map((plugin) => ({
       name: plugin.name,
       title: plugin.title,
+      ...(plugin.icon === undefined ? {} : { icon: plugin.icon }),
       repository: { url: plugin.repository },
       versions: [{ version: plugin.version, publishTimestamp: 0, source: plugin.source ?? { type: 'npm', registry: REGISTRY_URL } }],
     })),
@@ -81,6 +82,7 @@ function publishedManifest(manifest, selected, timestamp, source) {
   return {
     name: manifest.name,
     title: selected.title,
+    ...(selected.icon === undefined ? {} : { icon: selected.icon }),
     ...(manifest.description === undefined ? {} : { description: manifest.description }),
     ...(author === undefined ? {} : { author }),
     ...(manifest.homepage === undefined ? {} : { homepage: manifest.homepage }),
