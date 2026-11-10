@@ -55,7 +55,7 @@
     {
       "name": "dsh-workbuddy-connect-community",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-workbuddy-connect-community.webp",
-      "version": "0.1.16-rc5.3",
+      "version": "0.1.17-rc5.3",
       "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community",
       "title": "WorkBuddy Connect Community（预览）"
     },

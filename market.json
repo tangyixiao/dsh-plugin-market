@@ -48,7 +48,7 @@
     },
     {
       "name": "dsh-workbuddy-connect-community",
-      "version": "0.1.16",
+      "version": "0.1.17",
       "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community",
       "title": "WorkBuddy Connect Community",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-workbuddy-connect-community.webp"
