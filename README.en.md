@@ -1,8 +1,10 @@
-<p align="center"><img src="public/assets/logo.webp" width="128" height="128" alt="Tangyixiao DSH Plugin Market logo"></p>
+<p align="center"><img src="public/assets/logo.webp" width="192" height="192" alt="Tangyixiao DSH Plugin Market logo"></p>
 
 <h1 align="center">Tangyixiao DSH Plugin Market</h1>
 
 <p align="center">Aggregate public DSH plugin indexes with maintained exact pins, an independent preview channel and auditable sources and conflicts.</p>
+
+<p align="center"><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-en.svg" width="100%" alt="Tangyixiao DSH Plugin Market — Project and usage guide"></a></p>
 
 <p align="center"><a href="README.md">简体中文</a> · <a href="README.en.md">English</a></p>
 
