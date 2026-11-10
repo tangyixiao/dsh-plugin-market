@@ -30,7 +30,7 @@ Add the stable index below through DSH Plugins → Discover → Add index source
 
 | Item | Current source of truth |
 | --- | --- |
-| Source version | `0.1.0` · 以 [package.json](package.json) 为准 |
+| Source version | `0.1.1` · 以 [package.json](package.json) 为准 |
 | Distribution | `index` · [Releases](https://github.com/tangyixiao/dsh-plugin-market/releases) |
 | Node.js | `>=24` |
 | Development | [Open issues](https://github.com/tangyixiao/dsh-plugin-market/issues?q=is%3Aissue+is%3Aopen) · [CI](https://github.com/tangyixiao/dsh-plugin-market/actions) |

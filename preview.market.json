@@ -48,39 +48,34 @@
     {
       "name": "dsh-zcode-plan-bridge",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-zcode-plan-bridge.webp",
-      "version": "0.6.0-community.5",
+      "version": "0.6.1-community.1",
       "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge",
       "title": "ZCode Plan Bridge（预览）"
     },
     {
       "name": "dsh-workbuddy-connect-community",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-workbuddy-connect-community.webp",
-      "version": "0.1.7-rc5.2",
+      "version": "0.1.16-rc5.3",
       "repository": "https://github.com/tangyixiao/dsh-workbuddy-connect-community",
-      "title": "WorkBuddy Connect Community（预览）",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/tangyixiao/dsh-workbuddy-connect-community",
-        "commit": "63d91ce474f113c0881a27f24c455f2d09c83d7d"
-      }
+      "title": "WorkBuddy Connect Community（预览）"
     },
     {
       "name": "dsh-pr-release-workspace",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "repository": "https://github.com/tangyixiao/dsh-pr-release-workspace",
       "title": "PR & Release Workspace",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-pr-release-workspace.webp"
     },
     {
       "name": "dsh-provider-doctor",
-      "version": "0.1.7",
+      "version": "0.1.8",
       "repository": "https://github.com/tangyixiao/dsh-provider-doctor",
       "title": "DSH Provider Doctor",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-provider-doctor.webp"
     },
     {
       "name": "dsh-version-manager",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "repository": "https://github.com/tangyixiao/dsh-version-manager",
       "title": "DSH Version Manager",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-version-manager.webp"

@@ -30,7 +30,7 @@ https://tangyixiao.github.io/dsh-plugin-market/index.json
 
 | 项目 | 当前依据 |
 | --- | --- |
-| 源码版本 | `0.1.0` · 以 [package.json](package.json) 为准 |
+| 源码版本 | `0.1.1` · 以 [package.json](package.json) 为准 |
 | 分发方式 | `index` · [Releases](https://github.com/tangyixiao/dsh-plugin-market/releases) |
 | Node.js | `>=24` |
 | 开发状态 | [Open issues](https://github.com/tangyixiao/dsh-plugin-market/issues?q=is%3Aissue+is%3Aopen) · [CI](https://github.com/tangyixiao/dsh-plugin-market/actions) |
