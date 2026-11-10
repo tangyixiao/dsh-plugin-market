@@ -16,33 +16,59 @@
     <meta name="twitter:card" content="summary">
     <title>Tangyixiao DSH 插件市场</title>
     <style>
-      body { max-width: 52rem; margin: 3rem auto; padding: 0 1.25rem; font: 16px/1.7 system-ui, sans-serif; color: #202c34; background: #fafbf8; }
+      body { max-width: 60rem; margin: 3rem auto; padding: 0 1.25rem; font: 16px/1.7 system-ui, "Microsoft YaHei", sans-serif; color: #202c34; background: #fafbf8; }
       a { color: #126d5a; overflow-wrap: anywhere; } h1 { line-height: 1.2; } #stats { font-size: 1.15rem; } li { margin: .7rem 0; }
       .market-brand { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
       .market-brand h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); }
-      .market-brand img { flex: 0 0 64px; }
-      .maintained { list-style: none; padding: 0; }
-      .maintained a { display: inline-flex; align-items: center; gap: .6rem; }
-      .maintained img { width: 36px; height: 36px; object-fit: contain; }
+      .market-brand img { flex: 0 0 104px; width: 104px; height: 104px; object-fit: contain; }
+      .featured { display: grid; gap: 1rem; margin-bottom: 1rem; }
+      .project-banner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 210px; overflow: hidden; border: 1px solid #dce2e8; border-radius: 12px; background: #fff; color: #202c34; text-decoration: none; padding: 1.25rem 1.5rem; }
+      .project-banner .copy { flex: 1; min-width: 0; }
+      .project-banner small { color: #5c6d83; font-size: .75rem; letter-spacing: .08em; }
+      .project-banner h3 { font-size: 1.6rem; line-height: 1.25; margin: .35rem 0 .65rem; }
+      .project-banner p { color: #566269; margin: 0 0 1rem; }
+      .project-banner .action { color: #375fea; font-weight: 600; }
+      .project-banner img { width: 220px; height: 190px; flex: 0 0 auto; object-fit: contain; }
+      .maintained { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+      .maintained li { margin: 0; min-width: 0; }
+      .maintained a { display: flex; height: 100%; box-sizing: border-box; align-items: center; gap: 1rem; padding: .7rem 1rem; color: #202c34; text-decoration: none; border: 1px solid #dce2e8; border-radius: 10px; background: #fff; }
+      .maintained img { width: 72px; height: 72px; flex: 0 0 auto; object-fit: contain; }
+      .project-banner:hover, .maintained a:hover { border-color: #7893bf; }
+      a:focus-visible { outline: 3px solid #375fea; outline-offset: 4px; }
       .note { color: #566269; } code { background: #e9efea; padding: .15rem .35rem; }
+      @media (max-width: 600px) {
+        body { margin: 1.5rem auto; padding: 0 1rem; }
+        .market-brand { gap: .65rem; }
+        .market-brand img { flex-basis: 78px; width: 78px; height: 78px; }
+        .market-brand h1 { font-size: 1.4rem; }
+        .project-banner { padding: 1rem; gap: .5rem; min-height: 210px; }
+        .project-banner h3 { font-size: 1.25rem; }
+        .project-banner p, .project-banner .action { font-size: .8rem; }
+        .project-banner small { font-size: .65rem; letter-spacing: 0; }
+        .project-banner img { width: 124px; height: 180px; }
+        .maintained { grid-template-columns: 1fr; }
+        .maintained img { width: 64px; height: 64px; }
+      }
     </style>
   </head>
   <body>
-    <header class="market-brand"><img src="./assets/logo.webp" width="64" height="64" alt="" fetchpriority="high"><h1 id="market-title">Tangyixiao DSH 插件市场</h1></header>
+    <header class="market-brand"><img src="./assets/logo.webp" width="104" height="104" alt="" fetchpriority="high"><h1 id="market-title">Tangyixiao DSH 插件市场</h1></header>
     <p>在 DSH 的「插件 → 发现 → 添加索引源」中添加：</p>
     <p><a id="feed-url" href="./index.json">https://tangyixiao.github.io/dsh-plugin-market/index.json</a></p>
     <p>明确选用预览版本：<a href="https://tangyixiao.github.io/dsh-plugin-market/preview/index.json">预览渠道索引</a>；<a href="https://tangyixiao.github.io/dsh-plugin-market/index.json">稳定渠道索引</a>。主索引的自有稳定 pin 保持独立。</p>
     <p>公开预览：<a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge/releases/tag/v0.6.0-community.5">ZCode Plan Bridge</a> · <a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community/releases/tag/v0.1.7-rc5.2">WorkBuddy 社区版</a>。<a href="https://github.com/tangyixiao/zcode-community-retry/releases/tag/v0.3.3">ZCode Community Retry 0.3.3</a> 是 ZCode 原生插件，按其发布说明安装。</p>
     <p>收录条目、精确版本及兼容范围见索引和 DSH 安装确认页。</p>
     <h2>我维护的项目</h2>
+    <div class="featured">
+      <a class="project-banner" href="https://github.com/tangyixiao/dsh-zcode-plan-bridge"><div class="copy"><small>ZCODE × DSH · 模型桥接</small><h3>ZCode Plan Bridge</h3><p>把本机 ZCode 的模型能力接入 DSH。</p><span class="action">查看项目与安装说明 ↗</span></div><img src="./assets/dsh-zcode-plan-bridge.webp" width="220" height="190" alt="鲸鱼娘与 GLM 娘一起连接两端线缆" loading="lazy"></a>
+      <a class="project-banner" href="https://github.com/tangyixiao/drawai-video-studio"><div class="copy"><small>CODEX SKILL · 视频创作</small><h3>DrawAI Video Studio</h3><p>用代码制作视频，从分镜到预览与渲染。</p><span class="action">查看 Skill 与使用说明 ↗</span></div><img src="./assets/drawai-video-studio.webp" width="220" height="190" alt="GPT 白龙娘拿着场记板和画笔" loading="lazy"></a>
+    </div>
     <ul class="maintained">
-      <li><a href="https://github.com/tangyixiao/dsh-zcode-plan-bridge"><img src="./assets/dsh-zcode-plan-bridge.webp" width="36" height="36" alt="" loading="lazy">ZCode Plan Bridge</a></li>
-      <li><a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community"><img src="./assets/dsh-workbuddy-connect-community.webp" width="36" height="36" alt="" loading="lazy">WorkBuddy Connect Community</a></li>
-      <li><a href="https://github.com/tangyixiao/dsh-provider-doctor"><img src="./assets/dsh-provider-doctor.webp" width="36" height="36" alt="" loading="lazy">Provider Doctor</a></li>
-      <li><a href="https://github.com/tangyixiao/dsh-pr-release-workspace"><img src="./assets/dsh-pr-release-workspace.webp" width="36" height="36" alt="" loading="lazy">PR &amp; Release Workspace</a></li>
-      <li><a href="https://github.com/tangyixiao/dsh-version-manager"><img src="./assets/dsh-version-manager.webp" width="36" height="36" alt="" loading="lazy">Version Manager</a></li>
-      <li><a href="https://github.com/tangyixiao/zcode-community-retry"><img src="./assets/zcode-community-retry.webp" width="36" height="36" alt="" loading="lazy">ZCode Community Retry</a></li>
-      <li><a href="https://github.com/tangyixiao/drawai-video-studio"><img src="./assets/drawai-video-studio.webp" width="36" height="36" alt="" loading="lazy">DrawAI Video Studio</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-workbuddy-connect-community"><img src="./assets/dsh-workbuddy-connect-community.webp" width="72" height="72" alt="" loading="lazy">WorkBuddy Connect Community ↗</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-provider-doctor"><img src="./assets/dsh-provider-doctor.webp" width="72" height="72" alt="" loading="lazy">Provider Doctor ↗</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-pr-release-workspace"><img src="./assets/dsh-pr-release-workspace.webp" width="72" height="72" alt="" loading="lazy">PR &amp; Release Workspace ↗</a></li>
+      <li><a href="https://github.com/tangyixiao/dsh-version-manager"><img src="./assets/dsh-version-manager.webp" width="72" height="72" alt="" loading="lazy">Version Manager ↗</a></li>
+      <li><a href="https://github.com/tangyixiao/zcode-community-retry"><img src="./assets/zcode-community-retry.webp" width="72" height="72" alt="" loading="lazy">ZCode Community Retry ↗</a></li>
     </ul>
     <p class="note">以上是项目入口；是否收录、可安装版本及兼容范围以对应渠道索引为准。</p>
     <p id="stats" aria-live="polite">正在读取本次构建统计……</p>

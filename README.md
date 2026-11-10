@@ -1,8 +1,10 @@
-<p align="center"><img src="public/assets/logo.webp" width="128" height="128" alt="Tangyixiao DSH Plugin Market logo"></p>
+<p align="center"><img src="public/assets/logo.webp" width="192" height="192" alt="Tangyixiao DSH Plugin Market logo"></p>
 
 <h1 align="center">Tangyixiao DSH Plugin Market</h1>
 
 <p align="center">聚合公开 DSH 插件索引，保留自有精确版本、独立预览渠道及可追溯的来源与冲突。</p>
+
+<p align="center"><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-zh-CN.svg" width="100%" alt="Tangyixiao DSH Plugin Market — 查看项目与使用说明"></a></p>
 
 <p align="center"><a href="README.md">简体中文</a> · <a href="README.en.md">English</a></p>
 
