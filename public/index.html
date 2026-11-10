@@ -36,6 +36,14 @@
       .project-banner:hover, .maintained a:hover { border-color: #7893bf; }
       a:focus-visible { outline: 3px solid #375fea; outline-offset: 4px; }
       .note { color: #566269; } code { background: #e9efea; padding: .15rem .35rem; }
+      @media (prefers-color-scheme: dark) {
+        :root { color-scheme: dark; }
+        body { color: #e6edf3; background: #0d1117; }
+        a, .project-banner .action { color: #79c0ff; }
+        .project-banner, .maintained a { color: #e6edf3; background: #161b22; border-color: #30363d; }
+        .note, .project-banner p, .project-banner small { color: #9da7b3; }
+        code { background: #21262d; }
+      }
       @media (max-width: 600px) {
         body { margin: 1.5rem auto; padding: 0 1rem; }
         .market-brand { gap: .65rem; }
