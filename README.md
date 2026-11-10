@@ -4,7 +4,7 @@
 
 <p align="center">聚合公开 DSH 插件索引，保留自有精确版本、独立预览渠道及可追溯的来源与冲突。</p>
 
-<p align="center"><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-zh-CN-dark.svg#gh-dark-mode-only" width="100%" alt="Tangyixiao DSH Plugin Market — 查看项目与使用说明"></a><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-zh-CN.svg#gh-light-mode-only" width="100%" alt="Tangyixiao DSH Plugin Market — 查看项目与使用说明"></a></p>
+<p align="center"><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-zh-CN.svg" width="100%" alt="Tangyixiao DSH Plugin Market — 查看项目与使用说明"></a></p>
 
 <p align="center"><a href="README.md">简体中文</a> · <a href="README.en.md">English</a></p>
 

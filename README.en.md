@@ -4,7 +4,7 @@
 
 <p align="center">Aggregate public DSH plugin indexes with maintained exact pins, an independent preview channel and auditable sources and conflicts.</p>
 
-<p align="center"><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-en-dark.svg#gh-dark-mode-only" width="100%" alt="Tangyixiao DSH Plugin Market — Project and usage guide"></a><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-en.svg#gh-light-mode-only" width="100%" alt="Tangyixiao DSH Plugin Market — Project and usage guide"></a></p>
+<p align="center"><a href="https://github.com/tangyixiao/dsh-plugin-market"><img src="docs/assets/banner-en.svg" width="100%" alt="Tangyixiao DSH Plugin Market — Project and usage guide"></a></p>
 
 <p align="center"><a href="README.md">简体中文</a> · <a href="README.en.md">English</a></p>
 
