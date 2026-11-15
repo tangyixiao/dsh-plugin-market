@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { enableSnapshotAutoMerge, validateSnapshotPr } from '../scripts/auto-merge.mjs'
+import { enableSnapshotAutoMerge, PendingRunsError, snapshotCheckRuns, validateSnapshotPr } from '../scripts/auto-merge.mjs'
 import { coauthor } from '../scripts/snapshot.mjs'
 
 const repository = 'tangyixiao/dsh-plugin-market'
@@ -11,7 +11,10 @@ function fixture() {
       head: { repo: { full_name: repository }, ref: 'automation/market-sync', sha: headSha },
       base: { repo: { full_name: repository }, ref: 'main', sha: baseSha } },
     files: [{ filename: 'market-snapshot.json', status: 'modified' }],
-    comparison: { merge_base_commit: { sha: baseSha }, behind_by: 0, ahead_by: 1 }
+    comparison: { merge_base_commit: { sha: baseSha }, behind_by: 0, ahead_by: 1 },
+    runs: ['publish.yml', 'repository.yml'].map((workflow, i) => ({ id: 100 + i, path: `.github/workflows/${workflow}`,
+      event: 'pull_request', head_sha: headSha, head_branch: 'automation/market-sync', head_repository: { full_name: repository },
+      actor: { login: 'github-actions[bot]' }, pull_requests: [{ number: 38 }], conclusion: 'action_required' }))
   }
 }
 function harness(data = fixture()) {
@@ -19,13 +22,14 @@ function harness(data = fixture()) {
   let reads = 0, baseReads = 0
   return { calls, gh(args) {
     calls.push(args)
-    if (args[0] !== 'api') return ''
+    if (args[0] !== 'api' || args.includes('POST')) return ''
     const endpoint = args.at(-1)
     if (endpoint.endsWith('/git/ref/heads/main')) {
       baseReads++
       return JSON.stringify({ object: { sha: baseReads > 1 && data.mainMoved ? 'new-main' : baseSha } })
     }
     if (endpoint.includes('/pulls?')) return JSON.stringify([data.pr])
+    if (endpoint.includes('/actions/runs?')) return JSON.stringify({ workflow_runs: data.runs })
     if (endpoint.includes('/compare/')) return JSON.stringify({ ...data.comparison, files: data.files })
     if (endpoint.endsWith('/pulls/38')) {
       reads++
@@ -56,16 +60,15 @@ test('only same-repository, current-main, snapshot-only bot PRs qualify', () => 
     const f = fixture(); mutate(f)
     const h = harness(f)
     assert.throws(() => enableSnapshotAutoMerge(context, h.gh))
-    assert.equal(h.calls.some(args => ['workflow', 'pr'].includes(args[0])), false, 'Rejected scope must not dispatch or merge')
+    assert.equal(h.calls.some(args => args[0] === 'pr' || args.includes('POST')), false, 'Rejected scope must not approve or merge')
   }
 })
 
-test('dispatches both required checks before enabling merge of the exact head with co-author credit', () => {
+test('approves both actual PR check runs before enabling merge of the exact head with co-author credit', () => {
   const h = harness()
   assert.equal(enableSnapshotAutoMerge(context, h.gh), true)
-  const writes = h.calls.filter(args => args[0] !== 'api')
-  assert.deepEqual(writes.slice(0, 2).map(args => args[2]), ['publish.yml', 'repository.yml'])
-  for (const args of writes.slice(0, 2)) assert.equal(args.at(-1), 'automation/market-sync')
+  const writes = h.calls.filter(args => args[0] !== 'api' || args.includes('POST'))
+  assert.deepEqual(writes.slice(0, 2), [100, 101].map(id => ['api', '--method', 'POST', `repos/${repository}/actions/runs/${id}/approve`]))
   assert.deepEqual(writes[2].slice(0, 9), ['pr', 'merge', '38', '--repo', repository, '--auto', '--merge', '--match-head-commit', headSha])
   assert(writes[2].at(-1).endsWith(coauthor))
   assert(!writes[2].includes('--admin'))
@@ -93,11 +96,41 @@ test('historical PR base metadata is accepted only when the current-main compari
   assert.throws(() => enableSnapshotAutoMerge(context, harness(f).gh), /current main/)
 })
 
-test('main movement during dispatch stops before requesting automatic merge', () => {
+test('main movement during approval stops before requesting automatic merge', () => {
   const f = fixture(); f.mainMoved = true
   const h = harness(f)
   assert.throws(() => enableSnapshotAutoMerge(context, h.gh), /Main changed while/)
   assert(!h.calls.some(args => args[0] === 'pr'))
+})
+
+test('unrelated workflows, events, heads, branches, actors, repositories and PRs cannot be approved', () => {
+  for (const mutate of [
+    r => { r.path = '.github/workflows/other.yml' }, r => { r.event = 'workflow_dispatch' },
+    r => { r.head_sha = 'other-head' }, r => { r.head_branch = 'other-branch' },
+    r => { r.actor.login = 'someone' }, r => { r.head_repository.full_name = 'someone/fork' },
+    r => { r.pull_requests = [{ number: 99 }] }
+  ]) {
+    const f = fixture(); mutate(f.runs[0])
+    const h = harness(f)
+    assert.throws(() => enableSnapshotAutoMerge(context, h.gh), PendingRunsError)
+    assert(!h.calls.some(args => args.includes('POST') || args[0] === 'pr'))
+  }
+  const f = fixture()
+  assert.deepEqual(snapshotCheckRuns([f.runs[0], { ...f.runs[0], id: 200 }, f.runs[1]], f.pr, repository).map(run => run.id), [200, 101])
+})
+
+test('already-started or successful PR checks are not approved again; an approval error stops auto-merge', () => {
+  const f = fixture()
+  f.runs[0].conclusion = 'success'; f.runs[1].conclusion = null
+  const h = harness(f)
+  assert.equal(enableSnapshotAutoMerge(context, h.gh), true)
+  assert(!h.calls.some(args => args.includes('POST')))
+  const failing = harness()
+  assert.throws(() => enableSnapshotAutoMerge(context, args => {
+    if (args.includes('POST')) throw new Error('Approval forbidden')
+    return failing.gh(args)
+  }), /Approval forbidden/)
+  assert(!failing.calls.some(args => args[0] === 'pr'))
 })
 
 test('no open snapshot PR is a no-op', () => {
