@@ -82,10 +82,10 @@
     },
     {
       "name": "dsh-task-signal",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "repository": "https://github.com/tangyixiao/dsh-task-signal",
       "title": "Task Signal · 任务提示音",
-      "icon": "https://raw.githubusercontent.com/tangyixiao/dsh-task-signal/main/assets/icon.svg"
+      "icon": "https://raw.githubusercontent.com/tangyixiao/dsh-task-signal/main/assets/logo.webp"
     }
   ]
 }
