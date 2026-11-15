@@ -1,0 +1,220 @@
+{
+  "format": 1,
+  "channels": {
+    "stable": {
+      "configSha256": "54be5fa2872ea63cb8e98d8a13b094878f922490860763dea861cc8343e88176",
+      "format": 1,
+      "generatedAt": "2026-11-15T15:10:25.982Z",
+      "indexSha256": "9061a29113ac6dc87dc07f13bc2fa71db53f286d25ebeaf5596ded6b9f9b097d",
+      "summary": {
+        "plugins": 7700,
+        "versions": 8860,
+        "inputPlugins": 11988,
+        "conflicts": 1194,
+        "suppressedClaims": 2744
+      },
+      "market": {
+        "title": {
+          "en": "Tangyixiao DSH Market",
+          "zh": "Tangyixiao DSH 插件市场"
+        },
+        "indexUrl": "https://tangyixiao.github.io/dsh-plugin-market/index.json",
+        "allowPrerelease": false
+      },
+      "sources": [
+        {
+          "id": "curated",
+          "title": "Curated npm pins",
+          "url": "https://tangyixiao.github.io/dsh-plugin-market/index.json",
+          "pins": [
+            {
+              "name": "dsh-zcode-plan-bridge",
+              "version": "0.6.2"
+            },
+            {
+              "name": "dsh-workbuddy-connect-community",
+              "version": "0.1.20"
+            },
+            {
+              "name": "dsh-pr-release-workspace",
+              "version": "0.1.6"
+            },
+            {
+              "name": "dsh-provider-doctor",
+              "version": "0.1.9"
+            },
+            {
+              "name": "dsh-version-manager",
+              "version": "0.1.6"
+            },
+            {
+              "name": "dsh-task-signal",
+              "version": "0.1.1"
+            }
+          ]
+        },
+        {
+          "id": "awesome",
+          "title": "Awesome DSH Plugin",
+          "url": "https://awesome-dsh-plugin.com/index.json",
+          "homepage": "https://awesome-dsh-plugin.com",
+          "license": "CC0-1.0 catalog; individual plugin licenses remain separate",
+          "licenseUrl": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/blob/main/LICENSE",
+          "fetchedAt": "2026-11-15T15:10:20.365Z",
+          "sha256": "cf7d2fd85e6baba8d4f2bbd5c7a4e565c76af533f89b6200687199c02d5ac648",
+          "bytes": 4575123,
+          "plugins": 5635,
+          "versions": 5635
+        },
+        {
+          "id": "open",
+          "title": "Open Plugin Market",
+          "url": "https://dshopen.org/index.json",
+          "homepage": "https://dshopen.org",
+          "license": "GPL-3.0 source catalog; individual plugin licenses remain separate",
+          "licenseUrl": "https://github.com/polang233/dsh-plugin-index/blob/main/LICENSE",
+          "fetchedAt": "2026-11-15T15:10:22.223Z",
+          "sha256": "ed757ead99c33fcb3f1d07b9072f4912bffe66e2752e61085c13e085aa7f9140",
+          "bytes": 1987365,
+          "plugins": 1254,
+          "versions": 1254
+        },
+        {
+          "id": "marketplace",
+          "title": "DSH Marketplace",
+          "url": "https://dshmarketplace.dev/market/index.json",
+          "homepage": "https://dshmarketplace.dev",
+          "license": "API permits data reuse including commercial use; source attribution appreciated",
+          "licenseUrl": "https://dshmarketplace.dev/api-docs",
+          "fetchedAt": "2026-11-15T15:10:23.628Z",
+          "sha256": "ee79d179e337cc0042dce43e3a714c99dab44d2c2a54bde9f0f03e259103e0aa",
+          "bytes": 1658581,
+          "plugins": 1792,
+          "versions": 1792
+        },
+        {
+          "id": "hub",
+          "title": "DSH Plugin Hub",
+          "url": "https://dpharness.com/market/index.json",
+          "homepage": "https://dpharness.com",
+          "license": "Original translations and verification content: noncommercial reuse with source and original links; original plugin licenses remain separate",
+          "licenseUrl": "https://dpharness.com/terms",
+          "termsUrl": "https://dpharness.com/api-docs",
+          "fetchedAt": "2026-11-15T15:10:25.375Z",
+          "sha256": "f287a4c102102819a53e131154df7d4609caa866a8d712f28f84bb3c4798e840",
+          "bytes": 2873669,
+          "plugins": 3301,
+          "versions": 3301
+        }
+      ]
+    },
+    "preview": {
+      "configSha256": "0e95c4a1d3447efd7da13da8251ce2851abe4233981d71cb1630d134abdb18db",
+      "format": 1,
+      "generatedAt": "2026-11-15T15:10:34.856Z",
+      "indexSha256": "c677f819f0b14ae7ba8c5771776878ce9c4563c90959906e431f53271f4d79ea",
+      "summary": {
+        "plugins": 7700,
+        "versions": 8861,
+        "inputPlugins": 11988,
+        "conflicts": 1194,
+        "suppressedClaims": 2744
+      },
+      "market": {
+        "title": {
+          "en": "Tangyixiao DSH Preview Market",
+          "zh": "Tangyixiao DSH 预览插件市场"
+        },
+        "indexUrl": "https://tangyixiao.github.io/dsh-plugin-market/preview/index.json",
+        "allowPrerelease": true
+      },
+      "sources": [
+        {
+          "id": "curated",
+          "title": "Curated preview pins",
+          "url": "https://tangyixiao.github.io/dsh-plugin-market/preview/index.json",
+          "pins": [
+            {
+              "name": "dsh-zcode-plan-bridge",
+              "version": "0.6.2-toolkit.5"
+            },
+            {
+              "name": "dsh-workbuddy-connect-community",
+              "version": "0.1.20"
+            },
+            {
+              "name": "dsh-pr-release-workspace",
+              "version": "0.1.6"
+            },
+            {
+              "name": "dsh-provider-doctor",
+              "version": "0.1.9"
+            },
+            {
+              "name": "dsh-version-manager",
+              "version": "0.1.6"
+            },
+            {
+              "name": "dsh-task-signal",
+              "version": "0.1.1"
+            }
+          ]
+        },
+        {
+          "id": "awesome",
+          "title": "Awesome DSH Plugin",
+          "url": "https://awesome-dsh-plugin.com/index.json",
+          "homepage": "https://awesome-dsh-plugin.com",
+          "license": "CC0-1.0 catalog; individual plugin licenses remain separate",
+          "licenseUrl": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/blob/main/LICENSE",
+          "fetchedAt": "2026-11-15T15:10:27.127Z",
+          "sha256": "cf7d2fd85e6baba8d4f2bbd5c7a4e565c76af533f89b6200687199c02d5ac648",
+          "bytes": 4575123,
+          "plugins": 5635,
+          "versions": 5635
+        },
+        {
+          "id": "open",
+          "title": "Open Plugin Market",
+          "url": "https://dshopen.org/index.json",
+          "homepage": "https://dshopen.org",
+          "license": "GPL-3.0 source catalog; individual plugin licenses remain separate",
+          "licenseUrl": "https://github.com/polang233/dsh-plugin-index/blob/main/LICENSE",
+          "fetchedAt": "2026-11-15T15:10:28.647Z",
+          "sha256": "ed757ead99c33fcb3f1d07b9072f4912bffe66e2752e61085c13e085aa7f9140",
+          "bytes": 1987365,
+          "plugins": 1254,
+          "versions": 1254
+        },
+        {
+          "id": "marketplace",
+          "title": "DSH Marketplace",
+          "url": "https://dshmarketplace.dev/market/index.json",
+          "homepage": "https://dshmarketplace.dev",
+          "license": "API permits data reuse including commercial use; source attribution appreciated",
+          "licenseUrl": "https://dshmarketplace.dev/api-docs",
+          "fetchedAt": "2026-11-15T15:10:29.814Z",
+          "sha256": "ee79d179e337cc0042dce43e3a714c99dab44d2c2a54bde9f0f03e259103e0aa",
+          "bytes": 1658581,
+          "plugins": 1792,
+          "versions": 1792
+        },
+        {
+          "id": "hub",
+          "title": "DSH Plugin Hub",
+          "url": "https://dpharness.com/market/index.json",
+          "homepage": "https://dpharness.com",
+          "license": "Original translations and verification content: noncommercial reuse with source and original links; original plugin licenses remain separate",
+          "licenseUrl": "https://dpharness.com/terms",
+          "termsUrl": "https://dpharness.com/api-docs",
+          "fetchedAt": "2026-11-15T15:10:34.313Z",
+          "sha256": "f287a4c102102819a53e131154df7d4609caa866a8d712f28f84bb3c4798e840",
+          "bytes": 2873669,
+          "plugins": 3301,
+          "versions": 3301
+        }
+      ]
+    }
+  },
+  "contentSha256": "151c8b43a04c4b572c160495f196808ddd8af4d2bf82947cab7af417e895dfb9"
+}
