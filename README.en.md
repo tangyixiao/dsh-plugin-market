@@ -39,7 +39,7 @@ Index and provenance validation is not installation or sandbox testing of every 
 
 [详细指南](docs/guide.zh-CN.md)
 
-GitHub Actions refreshes all four upstreams every six hours, validates and deploys both channels, and maintains one snapshot PR co-authored with the maintainer. Unchanged indexes and configuration do not create commits. See [scheduled sync and attribution](docs/maintenance.md#scheduled-market-sync-and-co-authorship).
+GitHub Actions refreshes all four upstreams every six hours, validates and deploys both channels, and maintains one snapshot PR co-authored with the maintainer. Snapshot-only bot PRs merge automatically after required checks pass. Unchanged indexes, configuration and branch ancestry do not create commits. See [scheduled sync and attribution](docs/maintenance.md#scheduled-market-sync-and-co-authorship).
 
 ## Development and participation
 

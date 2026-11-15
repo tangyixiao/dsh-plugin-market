@@ -86,7 +86,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      actions: write # Explicitly validate bot PRs; GITHUB_TOKEN pushes do not trigger PR CI.
+      actions: write # Dispatch both required checks without bot-PR approval prompts.
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -131,7 +131,7 @@ jobs:
             test -z "$(git diff --name-only "$common" "$previous" -- . ':!market-snapshot.json')"
             previous_hash=$(git show "$previous:market-snapshot.json" | node -e 'console.log(JSON.parse(require("fs").readFileSync(0, "utf8")).contentSha256)')
             current_hash=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("market-snapshot.json", "utf8")).contentSha256)')
-            if [ "$previous_hash" = "$current_hash" ]; then
+            if [ "$previous_hash" = "$current_hash" ] && git merge-base --is-ancestor "$base" "$previous"; then
               echo 'The existing update PR already records these indexes; no duplicate commit needed.' >> "$GITHUB_STEP_SUMMARY"
               exit 0
             fi
@@ -147,5 +147,7 @@ jobs:
           else
             gh pr create --base main --head "$branch" --title 'chore(sync): record deployed market indexes' --body-file work/sync-pr-body.md
           fi
-          gh workflow run publish.yml --ref "$branch"
-          echo 'Updated the co-authored snapshot PR and requested branch validation; merge remains manual.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Validate sync PR scope and enable automatic merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/auto-merge.mjs
