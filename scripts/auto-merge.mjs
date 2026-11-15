@@ -12,7 +12,6 @@ export function validateSnapshotPr(pr, files, comparison, repository, baseSha) {
   assert.equal(pr.base.repo.full_name, repository, 'Unexpected base repository')
   assert.equal(pr.head.ref, 'automation/market-sync', 'Unexpected sync branch')
   assert.equal(pr.base.ref, 'main', 'Unexpected base branch')
-  assert.equal(pr.base.sha, baseSha, 'Main changed during recording')
   assert.equal(files.length, 1, 'Only one snapshot file may change')
   assert.equal(files[0].filename, 'market-snapshot.json', 'Code or pin changes require review')
   assert(['added', 'modified'].includes(files[0].status), 'Snapshot must not be removed or renamed')
@@ -31,15 +30,18 @@ export function enableSnapshotAutoMerge({ repository, baseSha, ref, event }, gh)
   if (!prs.length) return false
   assert.equal(prs.length, 1, 'Expected one sync PR')
   const pr = api(`pulls/${prs[0].number}`)
-  const files = JSON.parse(gh(['api', '--paginate', '--slurp', `repos/${repository}/pulls/${pr.number}/files?per_page=100`])).flat()
+  // PR base.sha and PR files can retain the creation-time base after main moves.
+  // Compare against the current, independently verified main commit instead.
+  // GitHub caps comparison files at 300; any multi-file result is rejected.
   const comparison = api(`compare/${baseSha}...${pr.head.sha}`)
-  const headSha = validateSnapshotPr(pr, files, comparison, repository, baseSha)
+  const headSha = validateSnapshotPr(pr, comparison.files, comparison, repository, baseSha)
   // GITHUB_TOKEN-created PR checks need approval. Dispatch BOTH required checks.
   // These branch workflows have read-only permissions and cannot deploy.
   for (const workflow of ['publish.yml', 'repository.yml']) {
     gh(['workflow', 'run', workflow, '--repo', repository, '--ref', pr.head.ref])
   }
   assert.equal(api(`pulls/${pr.number}`).head.sha, headSha, 'PR changed while checks were dispatched')
+  assert.equal(api('git/ref/heads/main').object.sha, baseSha, 'Main changed while checks were dispatched')
   gh(['pr', 'merge', String(pr.number), '--repo', repository, '--auto', '--merge',
     '--match-head-commit', headSha, '--subject', `chore(sync): record deployed market indexes (#${pr.number})`,
     '--body', `Validated market snapshot. Required build and repository checks remain enforced.\n\n${coauthor}`])

@@ -16,15 +16,17 @@ function fixture() {
 }
 function harness(data = fixture()) {
   const calls = []
-  let reads = 0
+  let reads = 0, baseReads = 0
   return { calls, gh(args) {
     calls.push(args)
     if (args[0] !== 'api') return ''
     const endpoint = args.at(-1)
-    if (endpoint.endsWith('/git/ref/heads/main')) return JSON.stringify({ object: { sha: baseSha } })
+    if (endpoint.endsWith('/git/ref/heads/main')) {
+      baseReads++
+      return JSON.stringify({ object: { sha: baseReads > 1 && data.mainMoved ? 'new-main' : baseSha } })
+    }
     if (endpoint.includes('/pulls?')) return JSON.stringify([data.pr])
-    if (endpoint.includes('/files?')) return JSON.stringify([data.files])
-    if (endpoint.includes('/compare/')) return JSON.stringify(data.comparison)
+    if (endpoint.includes('/compare/')) return JSON.stringify({ ...data.comparison, files: data.files })
     if (endpoint.endsWith('/pulls/38')) {
       reads++
       return JSON.stringify(reads > 1 && data.moved ? { ...data.pr, head: { ...data.pr.head, sha: 'c'.repeat(40) } } : data.pr)
@@ -44,7 +46,7 @@ test('only same-repository, current-main, snapshot-only bot PRs qualify', () => 
     f => { f.pr.state = 'closed' }, f => { f.pr.draft = true },
     f => { f.pr.user.login = 'someone' }, f => { f.pr.head.repo.full_name = 'someone/fork' },
     f => { f.pr.base.repo.full_name = 'someone/other' }, f => { f.pr.head.ref = 'feature' },
-    f => { f.pr.base.ref = 'other' }, f => { f.pr.base.sha = 'new-main' },
+    f => { f.pr.base.ref = 'other' },
     f => { f.files = [] }, f => { f.files.push({ filename: 'market.json', status: 'modified' }) },
     f => { f.files[0].filename = 'market.json' }, f => { f.files[0].status = 'removed' },
     f => { f.files[0].status = 'renamed' }, f => { f.comparison.merge_base_commit.sha = 'old-main' },
@@ -79,6 +81,23 @@ test('a moving head cannot be armed and untrusted workflow contexts cannot call 
     assert.throws(() => enableSnapshotAutoMerge({ ...context, ...override }, h.gh))
     assert.deepEqual(h.calls, [])
   }
+})
+
+test('historical PR base metadata is accepted only when the current-main comparison is snapshot-only', () => {
+  const f = fixture()
+  f.pr.base.sha = 'creation-time-base'
+  const h = harness(f)
+  assert.equal(enableSnapshotAutoMerge(context, h.gh), true)
+  assert(h.calls.some(args => args.at(-1).endsWith(`compare/${baseSha}...${headSha}`)))
+  f.comparison.merge_base_commit.sha = 'creation-time-base'
+  assert.throws(() => enableSnapshotAutoMerge(context, harness(f).gh), /current main/)
+})
+
+test('main movement during dispatch stops before requesting automatic merge', () => {
+  const f = fixture(); f.mainMoved = true
+  const h = harness(f)
+  assert.throws(() => enableSnapshotAutoMerge(context, h.gh), /Main changed while/)
+  assert(!h.calls.some(args => args[0] === 'pr'))
 })
 
 test('no open snapshot PR is a no-op', () => {
