@@ -69,7 +69,7 @@
     },
     {
       "name": "dsh-version-manager",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "repository": "https://github.com/tangyixiao/dsh-version-manager",
       "title": "DSH Version Manager",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-version-manager.webp"
