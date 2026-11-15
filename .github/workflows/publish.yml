@@ -4,24 +4,28 @@ on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: '43 */6 * * *' # 02:43, 08:43, 14:43, 20:43 Asia/Shanghai
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: plugin-market-${{ github.event_name == 'pull_request' && github.ref || 'pages' }}
+  group: plugin-market-${{ github.ref == 'refs/heads/main' && 'pages' || github.ref }}
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      snapshot: ${{ steps.snapshot.outputs.snapshot }}
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.ref || 'main' }}
+          ref: ${{ github.sha }}
           persist-credentials: false
       - name: Set up Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -31,7 +35,9 @@ jobs:
       - name: Install build dependencies
         run: npm ci --ignore-scripts --registry=https://registry.npmjs.org
       - name: Test index generation
-        run: npm test
+        run: |
+          node tools/check-repository.mjs
+          npm test
       - name: Generate and validate market index
         run: npm run build
         env:
@@ -45,14 +51,17 @@ jobs:
           MARKET_FETCH_ATTEMPTS: '6'
           MARKET_RETRY_DELAY_MS: '10000'
           MARKET_FETCH_TIMEOUT_MS: '15000'
+      - name: Record validated channel evidence
+        id: snapshot
+        run: node scripts/snapshot.mjs
       - name: Upload Pages content
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: dist
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -68,3 +77,75 @@ jobs:
       - name: Deploy market
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+  record-sync:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write # Explicitly validate bot PRs; GITHUB_TOKEN pushes do not trigger PR CI.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0 # Compare an existing bot branch with its main ancestor.
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Restore only the validated snapshot
+        env:
+          MARKET_SNAPSHOT: ${{ needs.build.outputs.snapshot }}
+        run: |
+          mkdir -p work
+          node scripts/snapshot.mjs --restore
+      - name: Create or update the co-authored snapshot PR
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch='automation/market-sync'
+          base=$(git rev-parse HEAD)
+          # Reject a stale run rather than replacing a newer main snapshot.
+          current=$(gh api "repos/$GH_REPO/git/ref/heads/main" --jq '.object.sha')
+          test "$current" = "$base"
+          git add -- market-snapshot.json
+          if git diff --cached --quiet; then
+            echo 'No index or pin changes; no snapshot commit needed.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git diff --cached --check
+          tree=$(git write-tree)
+          parents=(-p "$base")
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            git fetch --no-tags origin "$branch"
+            previous=$(git rev-parse FETCH_HEAD)
+            common=$(git merge-base "$base" "$previous")
+            # Preserve manual code edits on the bot branch for human review.
+            test -z "$(git diff --name-only "$common" "$previous" -- . ':!market-snapshot.json')"
+            previous_hash=$(git show "$previous:market-snapshot.json" | node -e 'console.log(JSON.parse(require("fs").readFileSync(0, "utf8")).contentSha256)')
+            current_hash=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("market-snapshot.json", "utf8")).contentSha256)')
+            if [ "$previous_hash" = "$current_hash" ]; then
+              echo 'The existing update PR already records these indexes; no duplicate commit needed.' >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            if [ "$previous" != "$base" ]; then parents+=(-p "$previous"); fi
+          fi
+          commit=$(git commit-tree "$tree" "${parents[@]}" \
+            -m 'chore(sync): record deployed market indexes' \
+            -m 'Co-authored-by: Tang Yixiao <115929632+tangyixiao@users.noreply.github.com>')
+          git push origin "$commit:refs/heads/$branch"
+          existing=$(gh pr list --state open --head "$branch" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --title 'chore(sync): record deployed market indexes' --body-file work/sync-pr-body.md
+          else
+            gh pr create --base main --head "$branch" --title 'chore(sync): record deployed market indexes' --body-file work/sync-pr-body.md
+          fi
+          gh workflow run publish.yml --ref "$branch"
+          echo 'Updated the co-authored snapshot PR and requested branch validation; merge remains manual.' >> "$GITHUB_STEP_SUMMARY"
