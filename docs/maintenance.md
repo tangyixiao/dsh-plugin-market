@@ -9,6 +9,26 @@
 - Existing runtime checks remain separate from the repository/documentation checker. Action references are pinned, test jobs have timeouts and stale checks can cancel. Market deployment retains serialized publication.
 - Labels, Discussions, private reporting, topics, security settings and branch rules are platform state. Their source files alone do not prove they are enabled or that a bot has run.
 
+## Scheduled market sync and co-authorship
+
+`Publish plugin market` runs every six hours (02:43, 08:43, 14:43 and 20:43 Asia/Shanghai), on pushes to `main`, and by manual dispatch. GitHub may delay scheduled runs. It checks repository policy, runs regressions, fetches every configured upstream, validates both channels and deploys only from `main`. A fetch, validation or build failure blocks deployment and the snapshot PR. Stable and preview pins remain explicit configuration; the bot does not select new npm tags or install indexed plugins.
+
+After successful deployment, the separate `record-sync` job receives the validated snapshot as a job output. Only that job can write repository contents or PRs; its Actions permission explicitly dispatches validation of bot PR commits because pushes using `GITHUB_TOKEN` do not trigger ordinary PR CI. Non-main validation cannot deploy or write snapshot PRs. No new secret or personal access token is required. The repository must allow GitHub Actions to create pull requests, while default workflow permissions remain read-only.
+
+The bot stages only `market-snapshot.json` and maintains one `automation/market-sync` PR without force-pushing or automatic merging. The snapshot records each channel's exact index hash, configuration hash, source evidence and counts. Unchanged indexes and configurations retain their previous evidence timestamps; an already-current PR receives no duplicate commit. A stale `main` or manual code edits on the bot branch stop recording rather than overwriting work. The snapshot is an audit record after deployment, not a frozen input for future builds.
+
+Automated commits use `github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>` as author and end with the verified maintainer trailer:
+
+```text
+Co-authored-by: Tang Yixiao <115929632+tangyixiao@users.noreply.github.com>
+```
+
+The PR body ends with the same trailer. Preserve the bot author and human co-author on merge, then read back the default-branch commit as described in [Contributing](../CONTRIBUTING.md#dependency-updates-and-co-authorship--依赖更新与联合署名). Attribution does not by itself prove contribution-graph visibility or an achievement. Source licenses and original contributor credit remain intact.
+
+To verify locally after building both channels, run `node scripts/snapshot.mjs` twice and confirm the second run leaves the snapshot unchanged. To verify the deployed workflow, dispatch `publish.yml` on `main`, inspect all three jobs, the live stable/preview summary hashes, and any bot commit's author/trailer. If no index changed, a successful no-change run correctly creates no commit.
+
+References: [GitHub scheduled events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) · [Co-authored commits](https://docs.github.com/en/pull-requests/how-tos/commit-changes/creating-a-commit-with-multiple-authors).
+
 ## Release and distribution
 
 The actual delivery type is **index**. Keep stable and preview versions distinct. Before publishing, verify the exact source, tests, package file list, runtime entries, version, license and notices. Then independently verify the registry/Release artifact, hashes, installation and activation where applicable. Do not publish an empty GitHub Package, container or application just to fill a feature.
