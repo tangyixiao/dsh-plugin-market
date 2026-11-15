@@ -39,7 +39,7 @@ https://tangyixiao.github.io/dsh-plugin-market/index.json
 
 [详细使用、配置与故障排查](docs/guide.zh-CN.md)
 
-GitHub Actions 每 6 小时刷新四个上游，校验稳定与预览频道后部署 Pages，并维护一条带维护者联合署名的快照 PR；索引与配置均无变化时不新增提交。见[自动同步与署名](docs/maintenance.md#scheduled-market-sync-and-co-authorship)。
+GitHub Actions 每 6 小时刷新四个上游，校验稳定与预览频道后部署 Pages，并维护一条带维护者联合署名的快照 PR。仅修改快照的机器人 PR 在必需检查通过后自动合并；索引、配置和分支基线均无变化时不新增提交。见[自动同步与署名](docs/maintenance.md#scheduled-market-sync-and-co-authorship)。
 
 ## 开发与参与
 
