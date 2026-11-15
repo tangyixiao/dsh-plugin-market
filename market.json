@@ -73,6 +73,13 @@
       "repository": "https://github.com/tangyixiao/dsh-version-manager",
       "title": "DSH Version Manager",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-version-manager.webp"
+    },
+    {
+      "name": "dsh-task-signal",
+      "version": "0.1.0",
+      "repository": "https://github.com/tangyixiao/dsh-task-signal",
+      "title": "Task Signal · 任务提示音",
+      "icon": "https://raw.githubusercontent.com/tangyixiao/dsh-task-signal/main/assets/icon.svg"
     }
   ]
 }
