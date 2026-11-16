@@ -48,9 +48,9 @@
     {
       "name": "dsh-zcode-plan-bridge",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-zcode-plan-bridge.webp",
-      "version": "0.6.2-toolkit.5",
+      "version": "0.6.3",
       "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge",
-      "title": "ZCode Plan Bridge（预览）"
+      "title": "ZCode Plan Bridge（工具箱）"
     },
     {
       "name": "dsh-workbuddy-connect-community",
