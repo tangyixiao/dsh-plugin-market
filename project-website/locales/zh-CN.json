@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "description": "浏览聚合的公开索引，按来源核对插件版本、兼容范围和安装通道。"
+  },
+  "pages": {
+    "home": {
+      "title": "从一个入口发现 DSH 插件 · {project}"
+    },
+    "features": {
+      "title": "项目特点 · {project}",
+      "description": "浏览聚合的公开索引，按来源核对插件版本、兼容范围和安装通道。"
+    },
+    "download": {
+      "title": "开始使用 · {project}",
+      "description": "先在浏览器查看插件条目、版本和来源。"
+    },
+    "community": {
+      "title": "参与项目 · {project}",
+      "description": "从这里找到使用说明、已有讨论和项目变更。"
+    }
+  },
+  "nav": {
+    "home": "首页",
+    "features": "项目特点",
+    "download": "开始使用",
+    "community": "参与项目"
+  },
+  "ui": {
+    "skip_link": "跳转到主要内容",
+    "navigation": "主导航",
+    "open_navigation": "打开导航",
+    "close_navigation": "关闭导航",
+    "language": "选择语言",
+    "theme": "选择主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统",
+    "platforms": "支持的平台",
+    "github": "GitHub",
+    "view_image": "查看完整演示图",
+    "feature_more": "查看详情",
+    "download": "浏览在线市场",
+    "release_notes": "仓库源代码",
+    "documentation": "使用文档",
+    "source": "仓库源代码",
+    "illustration": "使用路径",
+    "license": "GNU AGPL v3"
+  },
+  "hero": {
+    "title": [
+      "从一个入口发现 DSH 插件"
+    ],
+    "description": [
+      "浏览聚合的公开索引，按来源核对插件版本、兼容范围和安装通道。"
+    ],
+    "primary_action": "浏览在线市场",
+    "secondary_action": "查看详情"
+  },
+  "preview": {
+    "caption": "使用路径",
+    "tabs": [
+      {
+        "label": "开始使用",
+        "icon": "book"
+      }
+    ],
+    "items": [
+      {
+        "title": "打开在线市场",
+        "description": "先在浏览器查看插件条目、版本和来源。",
+        "icon": "book"
+      },
+      {
+        "title": "添加索引到 DSH",
+        "description": "在「插件 → 发现 → 添加索引源」中粘贴 https://tangyixiao.github.io/dsh-plugin-market/index.json。",
+        "icon": "link"
+      }
+    ]
+  },
+  "features": {
+    "title": "项目特点",
+    "groups": [
+      {
+        "title": "稳定与预览渠道",
+        "description": "日常使用可添加稳定索引。需要试用预览版时，再单独添加 preview/index.json。",
+        "detail": "",
+        "icon": "layers"
+      },
+      {
+        "title": "保留来源声明",
+        "description": "同一插件来自多个市场时，可追溯来源与版本冲突；每个条目的许可仍随其原项目。",
+        "detail": "",
+        "icon": "book"
+      }
+    ]
+  },
+  "getting_started": {
+    "title": "开始使用 · {project}",
+    "steps": [
+      {
+        "title": "打开在线市场",
+        "description": "先在浏览器查看插件条目、版本和来源。",
+        "icon": "book"
+      },
+      {
+        "title": "添加索引到 DSH",
+        "description": "在「插件 → 发现 → 添加索引源」中粘贴 https://tangyixiao.github.io/dsh-plugin-market/index.json。",
+        "icon": "link"
+      }
+    ]
+  },
+  "community": {
+    "title": "参与 · {project}",
+    "description": "从这里找到使用说明、已有讨论和项目变更。",
+    "links": [
+      {
+        "label": "帮助与反馈",
+        "description": "查看已报告的问题，或描述复现步骤。",
+        "icon": "book"
+      },
+      {
+        "label": "参与讨论",
+        "description": "查看已有话题，分享使用方法或改进建议。",
+        "icon": "link"
+      },
+      {
+        "label": "查看项目变更",
+        "description": "查看已有拉取请求或准备贡献。",
+        "icon": "code"
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "{copyright}"
+  }
+}

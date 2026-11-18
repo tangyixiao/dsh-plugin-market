@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "description": "Browse aggregated public indexes and check which source, version and compatibility range apply before installing a plugin."
+  },
+  "pages": {
+    "home": {
+      "title": "Discover DSH plugins across catalogs · {project}"
+    },
+    "features": {
+      "title": "Features · {project}",
+      "description": "Browse aggregated public indexes and check which source, version and compatibility range apply before installing a plugin."
+    },
+    "download": {
+      "title": "Get started · {project}",
+      "description": "Open a plugin entry and review its listed version and source."
+    },
+    "community": {
+      "title": "Community · {project}",
+      "description": "Find usage guidance, follow discussions and review changes to this project."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "download": "Get started",
+    "community": "Community"
+  },
+  "ui": {
+    "skip_link": "Skip to main content",
+    "navigation": "Main navigation",
+    "open_navigation": "Open navigation",
+    "close_navigation": "Close navigation",
+    "language": "Choose language",
+    "theme": "Choose theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "platforms": "Supported platforms",
+    "github": "GitHub",
+    "view_image": "View full illustration",
+    "feature_more": "Explore features",
+    "download": "Browse the live market",
+    "release_notes": "Source repository",
+    "documentation": "Documentation",
+    "source": "Source repository",
+    "illustration": "First steps",
+    "license": "GNU AGPL v3"
+  },
+  "hero": {
+    "title": [
+      "Discover DSH plugins across catalogs"
+    ],
+    "description": [
+      "Browse aggregated public indexes and check which source, version and compatibility range apply before installing a plugin."
+    ],
+    "primary_action": "Browse the live market",
+    "secondary_action": "Explore features"
+  },
+  "preview": {
+    "caption": "First steps",
+    "tabs": [
+      {
+        "label": "Get started",
+        "icon": "book"
+      }
+    ],
+    "items": [
+      {
+        "title": "Explore the live market",
+        "description": "Open a plugin entry and review its listed version and source.",
+        "icon": "book"
+      },
+      {
+        "title": "Add the stable index",
+        "description": "In DSH, open Plugins → Discover → Add index source and paste https://tangyixiao.github.io/dsh-plugin-market/index.json.",
+        "icon": "link"
+      }
+    ]
+  },
+  "features": {
+    "title": "Project features",
+    "groups": [
+      {
+        "title": "Stable and preview channels",
+        "description": "Add the stable catalog for ordinary use. Add preview/index.json separately when you want preview builds.",
+        "detail": "",
+        "icon": "layers"
+      },
+      {
+        "title": "Trace catalog entries",
+        "description": "Track where a plugin was listed and where versions conflict. Each entry remains subject to its original project’s license.",
+        "detail": "",
+        "icon": "book"
+      }
+    ]
+  },
+  "getting_started": {
+    "title": "Get started · {project}",
+    "steps": [
+      {
+        "title": "Explore the live market",
+        "description": "Open a plugin entry and review its listed version and source.",
+        "icon": "book"
+      },
+      {
+        "title": "Add the stable index",
+        "description": "In DSH, open Plugins → Discover → Add index source and paste https://tangyixiao.github.io/dsh-plugin-market/index.json.",
+        "icon": "link"
+      }
+    ]
+  },
+  "community": {
+    "title": "Community · {project}",
+    "description": "Find usage guidance, follow discussions and review changes to this project.",
+    "links": [
+      {
+        "label": "Help and feedback",
+        "description": "Browse existing reports or describe a reproducible problem.",
+        "icon": "book"
+      },
+      {
+        "label": "Join the discussion",
+        "description": "Read existing topics or share questions and ideas.",
+        "icon": "link"
+      },
+      {
+        "label": "Review changes",
+        "description": "Review open pull requests or prepare a contribution.",
+        "icon": "code"
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "{copyright}"
+  }
+}
