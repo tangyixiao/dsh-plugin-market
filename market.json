@@ -80,6 +80,13 @@
       "repository": "https://github.com/tangyixiao/dsh-task-signal",
       "title": "Task Signal · 任务提示音",
       "icon": "https://raw.githubusercontent.com/tangyixiao/dsh-task-signal/main/assets/logo.webp"
+    },
+    {
+      "name": "dsh-sylvan-appearance",
+      "version": "0.1.0",
+      "repository": "https://github.com/tangyixiao/dsh-sylvan-appearance",
+      "title": "DSH 外观 · Sylvan",
+      "icon": "https://raw.githubusercontent.com/tangyixiao/dsh-sylvan-appearance/v0.1.0/icon.png"
     }
   ]
 }
