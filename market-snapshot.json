@@ -4,14 +4,14 @@
     "stable": {
       "configSha256": "4cd371c66532c43946ed36a6316c4b52b668c064bf6c70e66a6ff71c27ba9e01",
       "format": 1,
-      "generatedAt": "2026-11-20T15:06:57.784Z",
-      "indexSha256": "5de4848c64455328f5322b9a01c588b48430d38def72818a045412c7d0ace2f6",
+      "generatedAt": "2026-11-20T20:42:45.838Z",
+      "indexSha256": "0bff569cc64616efc6766c17d94a4fb395a739ad53635816cfedc39931fe38f5",
       "summary": {
-        "plugins": 8499,
-        "versions": 9619,
-        "inputPlugins": 13020,
-        "conflicts": 1403,
-        "suppressedClaims": 3000
+        "plugins": 8506,
+        "versions": 9677,
+        "inputPlugins": 13033,
+        "conflicts": 1355,
+        "suppressedClaims": 3017
       },
       "market": {
         "title": {
@@ -64,11 +64,11 @@
           "homepage": "https://awesome-dsh-plugin.com",
           "license": "CC0-1.0 catalog; individual plugin licenses remain separate",
           "licenseUrl": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/blob/main/LICENSE",
-          "fetchedAt": "2026-11-20T15:06:51.307Z",
-          "sha256": "230c0dc5b929ccab6224d9963e60affa01879ceb9092c95c8de3c9aef018f04a",
-          "bytes": 5194888,
-          "plugins": 6378,
-          "versions": 6378
+          "fetchedAt": "2026-11-20T20:42:38.318Z",
+          "sha256": "7bc29eff22f654ec01521b2193348de5f1a85a038444addd5f8b2f95eab62e8c",
+          "bytes": 5193601,
+          "plugins": 6376,
+          "versions": 6376
         },
         {
           "id": "open",
@@ -77,11 +77,11 @@
           "homepage": "https://dshopen.org",
           "license": "GPL-3.0 source catalog; individual plugin licenses remain separate",
           "licenseUrl": "https://github.com/polang233/dsh-plugin-index/blob/main/LICENSE",
-          "fetchedAt": "2026-11-20T15:06:52.848Z",
-          "sha256": "783dbc88c7bf12e6c6819984c9460a465ce3200d62d485144eee057394ae9b16",
-          "bytes": 2099265,
-          "plugins": 1318,
-          "versions": 1318
+          "fetchedAt": "2026-11-20T20:42:39.829Z",
+          "sha256": "7bd81e9cc17d227c73ecadcbd57f5ad18df02bdf2a48015ac943f4f34d4be596",
+          "bytes": 2110491,
+          "plugins": 1325,
+          "versions": 1325
         },
         {
           "id": "marketplace",
@@ -90,8 +90,8 @@
           "homepage": "https://dshmarketplace.dev",
           "license": "API permits data reuse including commercial use; source attribution appreciated",
           "licenseUrl": "https://dshmarketplace.dev/api-docs",
-          "fetchedAt": "2026-11-20T15:06:53.861Z",
-          "sha256": "85d87b1eea10fd827be3e1fce6d16e1914c909f9a55acb29aeb071d46640ef10",
+          "fetchedAt": "2026-11-20T20:42:41.668Z",
+          "sha256": "d9cf515d5be3f5c3924ad8936b898c2f94de5cdddeade50cd0bb12dd0d1245a3",
           "bytes": 1826518,
           "plugins": 1948,
           "versions": 1948
@@ -104,25 +104,25 @@
           "license": "Original translations and verification content: noncommercial reuse with source and original links; original plugin licenses remain separate",
           "licenseUrl": "https://dpharness.com/terms",
           "termsUrl": "https://dpharness.com/api-docs",
-          "fetchedAt": "2026-11-20T15:06:57.234Z",
-          "sha256": "3659d3386ee56a10132cc986740ab02facf8648f8f466f14bbfd395d109173c2",
-          "bytes": 2933500,
-          "plugins": 3369,
-          "versions": 3369
+          "fetchedAt": "2026-11-20T20:42:45.345Z",
+          "sha256": "73fe5a2d042d5fbe0a6fa1aa6682c666c921fe6440a744f914f46c434fbc1378",
+          "bytes": 2942284,
+          "plugins": 3377,
+          "versions": 3377
         }
       ]
     },
     "preview": {
       "configSha256": "5a17e2a8ae691753848bc0bdd6aeb3f3ab1115198f9c98b25af224aebeda169e",
       "format": 1,
-      "generatedAt": "2026-11-20T15:07:04.656Z",
-      "indexSha256": "b6f9609e2fc76b1fc5ad3d0865d77b6efd2ab1143bf86f9c35f58bdaf2f010a1",
+      "generatedAt": "2026-11-20T20:42:53.230Z",
+      "indexSha256": "c22af59a3be3f5ba0650378f2b5e2d2b0dcf7c486a54d90e14101bca9402f7e1",
       "summary": {
-        "plugins": 8498,
-        "versions": 9618,
-        "inputPlugins": 13019,
-        "conflicts": 1403,
-        "suppressedClaims": 3000
+        "plugins": 8506,
+        "versions": 9677,
+        "inputPlugins": 13032,
+        "conflicts": 1355,
+        "suppressedClaims": 3017
       },
       "market": {
         "title": {
@@ -171,11 +171,11 @@
           "homepage": "https://awesome-dsh-plugin.com",
           "license": "CC0-1.0 catalog; individual plugin licenses remain separate",
           "licenseUrl": "https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/blob/main/LICENSE",
-          "fetchedAt": "2026-11-20T15:06:59.237Z",
-          "sha256": "230c0dc5b929ccab6224d9963e60affa01879ceb9092c95c8de3c9aef018f04a",
-          "bytes": 5194888,
-          "plugins": 6378,
-          "versions": 6378
+          "fetchedAt": "2026-11-20T20:42:47.041Z",
+          "sha256": "7bc29eff22f654ec01521b2193348de5f1a85a038444addd5f8b2f95eab62e8c",
+          "bytes": 5193601,
+          "plugins": 6376,
+          "versions": 6376
         },
         {
           "id": "open",
@@ -184,11 +184,11 @@
           "homepage": "https://dshopen.org",
           "license": "GPL-3.0 source catalog; individual plugin licenses remain separate",
           "licenseUrl": "https://github.com/polang233/dsh-plugin-index/blob/main/LICENSE",
-          "fetchedAt": "2026-11-20T15:07:00.599Z",
-          "sha256": "783dbc88c7bf12e6c6819984c9460a465ce3200d62d485144eee057394ae9b16",
-          "bytes": 2099265,
-          "plugins": 1318,
-          "versions": 1318
+          "fetchedAt": "2026-11-20T20:42:48.448Z",
+          "sha256": "7bd81e9cc17d227c73ecadcbd57f5ad18df02bdf2a48015ac943f4f34d4be596",
+          "bytes": 2110491,
+          "plugins": 1325,
+          "versions": 1325
         },
         {
           "id": "marketplace",
@@ -197,8 +197,8 @@
           "homepage": "https://dshmarketplace.dev",
           "license": "API permits data reuse including commercial use; source attribution appreciated",
           "licenseUrl": "https://dshmarketplace.dev/api-docs",
-          "fetchedAt": "2026-11-20T15:07:01.875Z",
-          "sha256": "85d87b1eea10fd827be3e1fce6d16e1914c909f9a55acb29aeb071d46640ef10",
+          "fetchedAt": "2026-11-20T20:42:48.824Z",
+          "sha256": "d9cf515d5be3f5c3924ad8936b898c2f94de5cdddeade50cd0bb12dd0d1245a3",
           "bytes": 1826518,
           "plugins": 1948,
           "versions": 1948
@@ -211,14 +211,14 @@
           "license": "Original translations and verification content: noncommercial reuse with source and original links; original plugin licenses remain separate",
           "licenseUrl": "https://dpharness.com/terms",
           "termsUrl": "https://dpharness.com/api-docs",
-          "fetchedAt": "2026-11-20T15:07:04.202Z",
-          "sha256": "3659d3386ee56a10132cc986740ab02facf8648f8f466f14bbfd395d109173c2",
-          "bytes": 2933500,
-          "plugins": 3369,
-          "versions": 3369
+          "fetchedAt": "2026-11-20T20:42:52.744Z",
+          "sha256": "73fe5a2d042d5fbe0a6fa1aa6682c666c921fe6440a744f914f46c434fbc1378",
+          "bytes": 2942284,
+          "plugins": 3377,
+          "versions": 3377
         }
       ]
     }
   },
-  "contentSha256": "4c0c6bdef09d2176ba558d2abb51baaec556b5b36006b397d563a4a6e6dbe4b8"
+  "contentSha256": "74e32a8f971e4f12c32a0e3a20a2b89d01d44b7b5e876b7efa84c80068b25419"
 }
