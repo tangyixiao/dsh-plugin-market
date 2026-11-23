@@ -48,7 +48,7 @@
     {
       "name": "dsh-zcode-plan-bridge",
       "icon": "https://tangyixiao.github.io/dsh-plugin-market/assets/dsh-zcode-plan-bridge.webp",
-      "version": "0.6.8",
+      "version": "0.7.0",
       "repository": "https://github.com/tangyixiao/dsh-zcode-plan-bridge",
       "title": "ZCode Plan Bridge（工具箱）"
     },
